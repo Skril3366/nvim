@@ -1,8 +1,13 @@
-local installer_status_ok, installer = pcall(require, 'nvim-lsp-installer')
+local installer_status_ok, installer = pcall(require, 'mason')
 if not installer_status_ok then
   print("LSPInstaller failed to run")
   return
 end
+
+local attach = function(client)
+  print("LSP has started")
+end
+
 
 installer.setup({
   ensure_installed = {
@@ -31,20 +36,27 @@ if not config_status_ok then
 end
 
 config.sumneko_lua.setup {
+  on_attach = attach,
   filetypes = { "lua" },
   settings = {
     Lua = {
       runtime = {
         -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
-        version = 'LuaJIT',
-      },
+        version = "LuaJIT", path = vim.split(package.path, ';'), },
+      completion = { keywordSnippet = "Disable", },
       diagnostics = {
         -- Get the language server to recognize the `vim` global
-        globals = { 'vim' },
+        diagnostics = { enable = true, globals = {
+          "vim", "describe", "it", "before_each", "after_each" },
+        },
       },
       workspace = {
         -- Make the server aware of Neovim runtime files
-        library = vim.api.nvim_get_runtime_file("", true),
+        -- library = vim.api.nvim_get_runtime_file("", true),
+        library = {
+          [vim.fn.expand("$VIMRUNTIME/lua")] = true,
+          [vim.fn.expand("$VIMRUNTIME/lua/vim/lsp")] = true,
+        }
       },
       -- Do not send telemetry data containing a randomized but unique identifier
       telemetry = {
@@ -53,21 +65,31 @@ config.sumneko_lua.setup {
     },
   },
 }
-config.jsonls.setup {}
 
-config.ltex.setup {}
-config.texlab.setup {}
+
+config.jsonls.setup {on_attach = attach}
+
+config.ltex.setup {on_attach = attach}
+config.texlab.setup {on_attach = attach}
 
 -- config.grammarly.setup { }
 config.marksman.setup {
+  on_attach = attach,
   -- single_file_support = true,
 }
 config.prosemd_lsp.setup {
+  on_attach = attach,
   single_file_support = true,
 }
 
-config.gopls.setup {}
-config.golangci_lint_ls.setup {}
+config.gopls.setup {on_attach = attach}
+config.golangci_lint_ls.setup {on_attach = attach}
+config.cssls.setup {on_attach = attach}
+config.bashls.setup {on_attach = attach}
+config.ccls.setup {on_attach = attach}
+config.clangd.setup {on_attach = attach}
+config.sqls.setup {on_attach = attach}
+config.sqlls.setup {on_attach = attach}
 
 -- require('lspconfig').clangd.setup{}
 -- require('lspconfig').ccls.setup{}

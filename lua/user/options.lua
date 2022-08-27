@@ -3,21 +3,31 @@ local o = vim.o
 local wo = vim.wo
 local bo = vim.bo
 
+
 -- Line numbers
 o.relativenumber = true -- relative line numbers
 o.nu = true -- display current line number
 
 -- TABs
-o.tabstop = 8 -- number of spaces that form 1 tab. Should be 8 by default
-o.softtabstop = 2 -- number of spaces that form 1 tab
-o.shiftwidth = 2 -- number of spaces that form 1 tab
+o.tabstop = 4 -- number of spaces that form 1 tab. Should be 8 by default
+o.softtabstop = 4 -- number of spaces that form 1 tab
+o.shiftwidth = 4 -- number of spaces that form 1 tab
 o.expandtab = true -- insert spaces instead of tabs in insert mode
 
 -- Folding
-wo.foldmethod="expr" -- default fold method as expression
-o.foldexpr="nvim_treesitter#foldexpr()" -- tree sitter foldmethod
-o.foldlevelstart=99
-wo.foldlevel=99
+wo.foldmethod = "expr" -- default fold method as expression
+-- vim.api.nvim_win_set_option(0, 'foldmethod', 'expr')
+-- vim.api.nvim_win_set_option(0, 'foldexpr', 'nvim_treesitter#foldexpr()')
+wo.foldexpr = "nvim_treesitter#foldexpr()" -- tree sitter foldmethod
+-- vim.cmd("setlocal foldexpr=nvim_treesitter#foldexpr()")
+-- vim.api.nvim_create_autocmd("FileType", {
+--   pattern="*",
+--   callback = function ()
+--     vim.cmd("setlocal foldexpr=nvim_treesitter#foldexpr()")
+--   end
+-- })
+o.foldlevelstart = 99
+wo.foldlevel = 99
 
 -- Undo & Backup
 o.undofile = true -- enable saving history
@@ -45,18 +55,30 @@ o.errorbells = false -- disable error bells
 o.scrolloff = 8 -- show 8 lines below cursor while scrolling
 wo.signcolumn = "yes:2" -- automatically set column for signs
 -- o.wildmenu = true -- ????
--- o.textwidth = 80 -- automatically breaks the line if it's longer than 80 symbols
+o.textwidth = 80 -- automatically breaks the line if it's longer than 80 symbols
 
 -- Other
 o.autoread = true -- update file when it's changed
-o.autochdir = true -- automatically change working directory
+-- o.autochdir = true -- automatically change working directory
 o.hidden = true -- don't unload buffers
 o.lazyredraw = true -- don't update buffer while executing commands
 o.swapfile = false -- don't create swap file
+o.filetype = true -- enable filetype detection
 
 -- Filetype specific
 
-vim.cmd([[
-autocmd FileType markdown,tex setlocal spell
-autocmd FileType markdown,tex setlocal textwidth=80
-]])
+-- vim.cmd([[
+-- autocmd FileType markdown,tex setlocal spell
+-- autocmd FileType markdown,tex setlocal textwidth=80
+-- ]])
+
+-- local spell_group = vim.api.nvim_create_augroup("Set spell", { clear = true })
+--
+-- vim.api.nvim_create_autocmd("FileType", {
+--   group = spell_group,
+--   pattern = { "*.tex", "*.md", "*.txt" },
+--   callback = function()
+--     vim.cmd("setlocal spell")
+--     -- vim.cmd("setlocal textwidth=80")
+--   end
+-- })

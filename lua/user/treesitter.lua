@@ -50,7 +50,7 @@ configs.setup {
     navigation = {
       enable = true,
       keymaps = {
-        goto_definition = "gd",
+        -- goto_definition = "gd",
         list_definitions = "gnD",
         list_definitions_toc = "gO",
         goto_next_usage = "<a-*>",

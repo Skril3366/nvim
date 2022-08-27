@@ -38,6 +38,10 @@ require('telescope').setup{
     -- builtin picker
   },
   extensions = {
+    file_browser = {
+      theme = "ivy",
+      hijack_netrw = true,
+    }
     -- Your extension configuration goes here:
     -- extension_name = {
     --   extension_config_key = value,
@@ -46,3 +50,5 @@ require('telescope').setup{
   }
 }
 require('telescope').load_extension("fzf")
+require("telescope").load_extension ("file_browser")
+

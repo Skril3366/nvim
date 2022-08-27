@@ -62,10 +62,14 @@ end
 
 cmp.setup {
   ignored_filetypes = {
-    TelescopePrompt = true
+    -- TelescopePrompt = false
   },
   enabled = function()
     -- disable completion in comments
+    if vim.bo.buftype == 'prompt' then
+      return false
+    end
+
     local context = require 'cmp.config.context'
     -- keep command mode completion enabled when cursor is in a comment
     if vim.api.nvim_get_mode().mode == 'c' then
@@ -178,44 +182,51 @@ cmp.setup {
 }
 
 -- vim.api.nvim_create_autocmd("FileType", {
---   pattern = "lua",
+    --   pattern = "lua",
+    --   callback = function()
+    --     cmp.setup.buffer {
+    --       sources = {
+    --         { name = 'nvim_lua' },
+    --         { name = "nvim_lsp_signature_help" },
+    --         { name = "nvim_lsp" },
+    --         { name = "treesitter" },
+    --         { name = "dictionary" },
+    --         { name = "path" },
+    --         { name = "luasnip" },
+    --         { name = "calc" },
+    --         { name = "buffer", keyword_length = 5 },
+    --       },
+    --     }
+    --   end
+    -- })
+
+
+    -- Add vim-dadbod-completion in sql files
+    -- _ = vim.cmd [[
+    --   augroup DadbodSql
+    --     au!
+    --     autocmd FileType sql,mysql,plsql lua require('cmp').setup.buffer { sources = { { name = 'vim-dadbod-completion' } } }
+    --   augroup END
+    -- ]]
+
+    -- _ = vim.cmd [[
+    --   augroup CmpZsh
+    --     au!
+    --     autocmd Filetype zsh lua require'cmp'.setup.buffer { sources = { { name = "zsh" }, } }
+    --   augroup END
+    -- ]]
+
+--     [[
+-- " Disable cmp for a buffer
+-- autocmd FileType TelescopePrompt lua require('cmp').setup.buffer { enabled = false }
+-- ]]
+
+-- vim.api.nvim_create_autocmd("FileType", {
+--   pattern = "TelescopePrompt",
 --   callback = function()
---     cmp.setup.buffer {
---       sources = {
---         { name = 'nvim_lua' },
---         { name = "nvim_lsp_signature_help" },
---         { name = "nvim_lsp" },
---         { name = "treesitter" },
---         { name = "dictionary" },
---         { name = "path" },
---         { name = "luasnip" },
---         { name = "calc" },
---         { name = "buffer", keyword_length = 5 },
---       },
---     }
+--     cmp.setup { enabled = false }
 --   end
 -- })
-
-
--- Add vim-dadbod-completion in sql files
--- _ = vim.cmd [[
---   augroup DadbodSql
---     au!
---     autocmd FileType sql,mysql,plsql lua require('cmp').setup.buffer { sources = { { name = 'vim-dadbod-completion' } } }
---   augroup END
--- ]]
-
--- _ = vim.cmd [[
---   augroup CmpZsh
---     au!
---     autocmd Filetype zsh lua require'cmp'.setup.buffer { sources = { { name = "zsh" }, } }
---   augroup END
--- ]]
-
---[[
-" Disable cmp for a buffer
-autocmd FileType TelescopePrompt lua require('cmp').setup.buffer { enabled = false }
---]]
 
 -- Youtube: customizing appearance
 --
