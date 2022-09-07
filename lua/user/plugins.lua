@@ -91,6 +91,12 @@ return packer.startup(function(use)
         requires = { { 'nvim-treesitter/nvim-treesitter' } }
     }
     use {
+        'lewis6991/spellsitter.nvim',
+        config = function()
+            require('spellsitter').setup()
+        end
+    }
+    use {
         'm-demare/hlargs.nvim', -- highlighting arguments of functions
         requires = { 'nvim-treesitter/nvim-treesitter' },
         config = function()

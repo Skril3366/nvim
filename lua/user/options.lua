@@ -65,12 +65,12 @@ o.lazyredraw = true -- don't update buffer while executing commands
 o.swapfile = false -- don't create swap file
 o.filetype = true -- enable filetype detection
 
+
 -- Filetype specific
 
--- vim.cmd([[
--- autocmd FileType markdown,tex setlocal spell
--- autocmd FileType markdown,tex setlocal textwidth=80
--- ]])
+vim.cmd([[
+autocmd FileType * setlocal spell
+]])
 
 -- local spell_group = vim.api.nvim_create_augroup("Set spell", { clear = true })
 --

@@ -90,6 +90,9 @@ config.ccls.setup {on_attach = attach}
 config.clangd.setup {on_attach = attach}
 config.sqls.setup {on_attach = attach}
 config.sqlls.setup {on_attach = attach}
+config.sqlls.setup {on_attach = attach}
+-- config.pyls.setup {on_attach = attach}
+config.pyright.setup {on_attach = attach}
 
 -- require('lspconfig').clangd.setup{}
 -- require('lspconfig').ccls.setup{}

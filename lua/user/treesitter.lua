@@ -67,3 +67,22 @@ configs.setup {
     -- termcolors = {} -- table of colour name strings
   }
 }
+
+require('spellsitter').setup {
+  -- Whether enabled, can be a list of filetypes, e.g. {'python', 'lua'}
+  enable = true,
+  debug = false
+}
+
+local spellsitter = vim.api.nvim_create_augroup("spellsitter", { clear = true })
+
+-- vim.api.nvim_create_autocmd("FileType", {
+--   pattern = { "python", "lua" }, -- disable spellchecking for these filetypes
+--   command = "setlocal nospell",
+--   group = spellsitter,
+-- })
+vim.api.nvim_create_autocmd("TermOpen", {
+  pattern = "*", -- disable spellchecking in the embeded terminal
+  command = "setlocal nospell",
+  group = spellsitter,
+})
