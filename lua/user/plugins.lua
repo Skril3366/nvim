@@ -26,14 +26,20 @@ end
 -- Autocommand that reloads neovim whenever you save the plugins.lua file
 local packer_user_config_id = vim.api.nvim_create_augroup("packer_user_config", { clear = true })
 
-vim.api.nvim_create_autocmd({ "BufWritePost" }, {
-    pattern = "plugins.lua",
-    group = packer_user_config_id,
-    callback = function()
-        -- require('plugins')
-        packer.sync()
-    end
-})
+-- vim.api.nvim_create_autocmd({ "BufWritePost" }, {
+--     pattern = "plugins.lua",
+--     group = packer_user_config_id,
+--     callback = function()
+--         require('plugins')
+--         packer.sync()
+--     end
+-- })
+vim.cmd([[
+  augroup packer_user_config
+    autocmd!
+    autocmd BufWritePost plugins.lua source <afile> | PackerSync
+  augroup end
+]])
 
 -- Have packer use a popup window
 packer.init {
@@ -110,6 +116,7 @@ return packer.startup(function(use)
         "williamboman/mason-lspconfig.nvim",
         "neovim/nvim-lspconfig",
     }
+    use({ 'scalameta/nvim-metals', requires = { "nvim-lua/plenary.nvim" } })
 
     -- DAP
     use {
@@ -172,8 +179,11 @@ return packer.startup(function(use)
     }
 
     -- TODO: setup this engine
-    use 'L3MON4D3/LuaSnip' -- Snippets engine
-    -- install without yarn or npm
+    use {
+        'L3MON4D3/LuaSnip',
+        "rafamadriz/friendly-snippets",
+    }
+
 
     -- install without yarn or npm
     use({ "iamcco/markdown-preview.nvim",
@@ -181,6 +191,8 @@ return packer.startup(function(use)
         setup = function() vim.g.mkdp_filetypes = { "markdown" } end,
         ft = { "markdown" },
     })
+    -- Packer
+    use { 'sindrets/diffview.nvim', requires = 'nvim-lua/plenary.nvim' }
 
 
     -- Automatically set up your configuration after cloning packer.nvim

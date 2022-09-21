@@ -19,10 +19,9 @@ keymap("n", "<leader>gf", telescope.git_files, opts)
 keymap("n", "<leader>gc", telescope.git_commits, opts)
 keymap("n", "<leader>gb", telescope.git_branches, opts)
 keymap("n", "gR", telescope.lsp_references, opts)
-keymap("n", "gw", telescope.lsp_workspace_symbols, opts)
-keymap("n", "gw", telescope.lsp_type_definitions, opts)
 keymap("n", "<leader>H", telescope.help_tags, opts)
 keymap("n", "<leader>K", telescope.keymaps, opts)
+keymap("n", "<leader>w", telescope.lsp_document_symbols, opts)
 keymap("n", "<leader>D", "<cmd>Telescope diagnostics<cr>", opts)
 keymap("n", "<leader>fb", "<cmd>Telescope file_browser<cr>", opts)
 
@@ -47,9 +46,30 @@ keymap("n", "<leader>dc", dap.continue, opts)
 keymap("n", "<leader>dB", function() dap.toggle_breakpoint(vim.fn.input('Condition: ')) end, opts)
 keymap("n", "<leader>db", dap.toggle_breakpoint, opts)
 keymap("n", "<leader>di", dap.step_into, opts)
-keymap("n", "<leader>do", dap.step_out, opts)
-keymap("n", "<leader>dO", dap.step_over, opts)
+keymap("n", "<leader>dO", dap.step_out, opts)
+keymap("n", "<leader>do", dap.step_over, opts)
 keymap("n", "<leader>du", require('dapui').toggle, opts)
+
+--Luasnip
+local ls = require('luasnip')
+keymap({"i", "s"}, "<C-k>", function()
+    if ls.expand_or_jumpable() then
+        ls.expand_or_jump()
+    end
+end,
+    opts)
+keymap({"i", "s"}, "<C-j>", function()
+    if ls.jumpable(-1) then
+        ls.jump(-1)
+    end
+end,
+    opts)
+keymap({"i", "s"}, "<C-l>", function()
+    if ls.choice_active() then
+        ls.change_choice(1)
+    end
+end,
+    opts)
 
 -- Other
 keymap("n", "<leader>u", '<cmd>UndotreeToggle<cr><cmd>UndotreeFocus<cr>', opts)

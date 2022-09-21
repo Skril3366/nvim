@@ -1,3 +1,4 @@
+require'user.luasnip'
 require'user.options'
 require'user.tokyonight'
 require'user.lualine'

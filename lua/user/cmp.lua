@@ -1,8 +1,7 @@
 vim.opt.completeopt = { "menu", "menuone", "noselect" }
 
-
 -- Don't show the dumb matching stuff.
-vim.opt.shortmess:append "c"
+vim.opt_global.shortmess:remove("F"):append("c")
 
 
 -- Complextras.nvim configuration
@@ -22,16 +21,17 @@ vim.opt.shortmess:append "c"
 
 local ok, lspkind = pcall(require, "lspkind")
 if not ok then
-  return
+    return
 end
 
 lspkind.init()
 
 local status_ok, cmp = pcall(require, 'cmp')
 if not status_ok then
-  print("CMP failed to run")
-  return
+    print("CMP failed to run")
+    return
 end
+
 
 -- cmp.setup.cmdline('/', {
 --   sources = cmp.config.sources(
@@ -61,160 +61,160 @@ end
 
 
 cmp.setup {
-  ignored_filetypes = {
-    -- TelescopePrompt = false
-  },
-  enabled = function()
-    -- disable completion in comments
-    if vim.bo.buftype == 'prompt' then
-      return false
-    end
-
-    local context = require 'cmp.config.context'
-    -- keep command mode completion enabled when cursor is in a comment
-    if vim.api.nvim_get_mode().mode == 'c' then
-      return true
-    else
-      return not context.in_treesitter_capture("comment")
-          and not context.in_syntax_group("Comment")
-    end
-  end,
-
-  mapping = {
-    ["<C-n>"] = cmp.mapping.select_next_item { behavior = cmp.SelectBehavior.Insert },
-    ["<C-p>"] = cmp.mapping.select_prev_item { behavior = cmp.SelectBehavior.Insert },
-    ["<C-d>"] = cmp.mapping.scroll_docs(-4),
-    ["<C-f>"] = cmp.mapping.scroll_docs(4),
-    ["<C-e>"] = cmp.mapping.abort(),
-    ["<c-y>"] = cmp.mapping(
-      cmp.mapping.confirm {
-        behavior = cmp.ConfirmBehavior.Insert,
-        select = true,
-      },
-      { "i", "c" }
-    ),
-
-    -- ["<tab>"] = false,
-    ["<tab>"] = cmp.config.disable,
-  },
-
-  sources = {
-    -- { name = 'cmp-clippy',
-    --   options = {
-    --     model = "EleutherAI/gpt-neo-2.7B", -- check code clippy vscode repo for options
-    --     key = "", -- huggingface.co api key
-    --   } },
-    { name = 'nvim_lua' },
-    { name = "plugins" },
-    { name = "nvim_lsp_signature_help" },
-    { name = "nvim_lsp" },
-    { name = "treesitter" },
-    { name = "dictionary" },
-    { name = "pandoc_references" },
-    { name = "conventionalcommits" },
-    { name = "path" },
-    { name = "luasnip" },
-    { name = "calc" },
-    { name = "buffer", keyword_length = 5 },
-  },
-  formatting = {
-    format = lspkind.cmp_format {
-      with_text = true,
-      menu = {
-        treesitter = "[TS]",
-        pandoc_references = "[pandoc]",
-        dictionary = "[dict]",
-        calc = "[calc]",
-        conventionalcommits = "[commits]",
-        nvim_lua = "[api]",
-        plugins = "[Plugins]",
-        nvim_lsp = "[LSP]",
-        buffer = "[buf]",
-        path = "[path]",
-        luasnip = "[snip]",
-      },
+    ignored_filetypes = {
+        -- TelescopePrompt = false
     },
-  },
-
-  sorting = {
-    -- TODO: Would be cool to add stuff like "See variable names before method names" in rust, or something like that.
-    comparators = {
-      cmp.config.compare.offset,
-      cmp.config.compare.exact,
-      cmp.config.compare.score,
-
-      -- copied from cmp-under, but I don't think I need the plugin for this.
-      -- I might add some more of my own.
-      function(entry1, entry2)
-        local _, entry1_under = entry1.completion_item.label:find "^_+"
-        local _, entry2_under = entry2.completion_item.label:find "^_+"
-        entry1_under = entry1_under or 0
-        entry2_under = entry2_under or 0
-        if entry1_under > entry2_under then
-          return false
-        elseif entry1_under < entry2_under then
-          return true
+    enabled = function()
+        -- disable completion in comments
+        if vim.bo.buftype == 'prompt' then
+            return false
         end
-      end,
 
-      cmp.config.compare.kind,
-      cmp.config.compare.sort_text,
-      cmp.config.compare.length,
-      cmp.config.compare.order,
-    },
-  },
-
-  -- Youtube: mention that you need a separate snippets plugin
-  snippet = {
-    expand = function(args)
-      require("luasnip").lsp_expand(args.body)
+        local context = require 'cmp.config.context'
+        -- keep command mode completion enabled when cursor is in a comment
+        if vim.api.nvim_get_mode().mode == 'c' then
+            return true
+        else
+            return not context.in_treesitter_capture("comment")
+                and not context.in_syntax_group("Comment")
+        end
     end,
-  },
+
+    mapping = {
+        ["<C-n>"] = cmp.mapping.select_next_item { behavior = cmp.SelectBehavior.Insert },
+        ["<C-p>"] = cmp.mapping.select_prev_item { behavior = cmp.SelectBehavior.Insert },
+        ["<C-f>"] = cmp.mapping.scroll_docs(4),
+        ["<C-e>"] = cmp.mapping.abort(),
+        ["<c-y>"] = cmp.mapping(
+            cmp.mapping.confirm {
+                behavior = cmp.ConfirmBehavior.Insert,
+                select = true,
+            },
+            { "i", "c" }
+        ),
 
 
-  experimental = {
-    -- I like the new menu better! Nice work hrsh7th
-    native_menu = false,
+        -- ["<tab>"] = false,
+        ["<tab>"] = cmp.config.disable,
+    },
 
-    -- Let's play with this for a day or two
-    ghost_text = true,
-  },
+    sources = {
+        -- { name = 'cmp-clippy',
+        --   options = {
+        --     model = "EleutherAI/gpt-neo-2.7B", -- check code clippy vscode repo for options
+        --     key = "", -- huggingface.co api key
+        --   } },
+        { name = "luasnip" },
+        { name = 'nvim_lua' },
+        { name = "plugins" },
+        { name = "nvim_lsp_signature_help" },
+        { name = "nvim_lsp" },
+        { name = "treesitter" },
+        { name = "dictionary" },
+        { name = "pandoc_references" },
+        { name = "conventionalcommits" },
+        { name = "path" },
+        { name = "calc" },
+        { name = "buffer", keyword_length = 5 },
+    },
+    formatting = {
+        format = lspkind.cmp_format {
+            with_text = true,
+            menu = {
+                luasnip = "[snip]",
+                treesitter = "[TS]",
+                pandoc_references = "[pandoc]",
+                dictionary = "[dict]",
+                calc = "[calc]",
+                conventionalcommits = "[commits]",
+                nvim_lua = "[api]",
+                plugins = "[Plugins]",
+                nvim_lsp = "[LSP]",
+                buffer = "[buf]",
+                path = "[path]",
+            },
+        },
+    },
+
+    sorting = {
+        -- TODO: Would be cool to add stuff like "See variable names before method names" in rust, or something like that.
+        comparators = {
+            cmp.config.compare.offset,
+            cmp.config.compare.exact,
+            cmp.config.compare.score,
+
+            -- copied from cmp-under, but I don't think I need the plugin for this.
+            -- I might add some more of my own.
+            function(entry1, entry2)
+                local _, entry1_under = entry1.completion_item.label:find "^_+"
+                local _, entry2_under = entry2.completion_item.label:find "^_+"
+                entry1_under = entry1_under or 0
+                entry2_under = entry2_under or 0
+                if entry1_under > entry2_under then
+                    return false
+                elseif entry1_under < entry2_under then
+                    return true
+                end
+            end,
+
+            cmp.config.compare.kind,
+            cmp.config.compare.sort_text,
+            cmp.config.compare.length,
+            cmp.config.compare.order,
+        },
+    },
+
+    -- Youtube: mention that you need a separate snippets plugin
+    snippet = {
+        expand = function(args)
+            require("luasnip").lsp_expand(args.body)
+        end,
+    },
+
+
+    experimental = {
+        -- I like the new menu better! Nice work hrsh7th
+        native_menu = false,
+
+        -- Let's play with this for a day or two
+        ghost_text = true,
+    },
 }
 
 -- vim.api.nvim_create_autocmd("FileType", {
-    --   pattern = "lua",
-    --   callback = function()
-    --     cmp.setup.buffer {
-    --       sources = {
-    --         { name = 'nvim_lua' },
-    --         { name = "nvim_lsp_signature_help" },
-    --         { name = "nvim_lsp" },
-    --         { name = "treesitter" },
-    --         { name = "dictionary" },
-    --         { name = "path" },
-    --         { name = "luasnip" },
-    --         { name = "calc" },
-    --         { name = "buffer", keyword_length = 5 },
-    --       },
-    --     }
-    --   end
-    -- })
+--   pattern = "lua",
+--   callback = function()
+--     cmp.setup.buffer {
+--       sources = {
+--         { name = 'nvim_lua' },
+--         { name = "nvim_lsp_signature_help" },
+--         { name = "nvim_lsp" },
+--         { name = "treesitter" },
+--         { name = "dictionary" },
+--         { name = "path" },
+--         { name = "luasnip" },
+--         { name = "calc" },
+--         { name = "buffer", keyword_length = 5 },
+--       },
+--     }
+--   end
+-- })
 
 
-    -- Add vim-dadbod-completion in sql files
-    -- _ = vim.cmd [[
-    --   augroup DadbodSql
-    --     au!
-    --     autocmd FileType sql,mysql,plsql lua require('cmp').setup.buffer { sources = { { name = 'vim-dadbod-completion' } } }
-    --   augroup END
-    -- ]]
+-- Add vim-dadbod-completion in sql files
+-- _ = vim.cmd [[
+--   augroup DadbodSql
+--     au!
+--     autocmd FileType sql,mysql,plsql lua require('cmp').setup.buffer { sources = { { name = 'vim-dadbod-completion' } } }
+--   augroup END
+-- ]]
 
-    -- _ = vim.cmd [[
-    --   augroup CmpZsh
-    --     au!
-    --     autocmd Filetype zsh lua require'cmp'.setup.buffer { sources = { { name = "zsh" }, } }
-    --   augroup END
-    -- ]]
+-- _ = vim.cmd [[
+--   augroup CmpZsh
+--     au!
+--     autocmd Filetype zsh lua require'cmp'.setup.buffer { sources = { { name = "zsh" }, } }
+--   augroup END
+-- ]]
 
 --     [[
 -- " Disable cmp for a buffer
@@ -240,3 +240,4 @@ cmp.setup {
 -- Group.new("CmpItemAbbrMatchFuzzy", g.CmpItemAbbr.fg:dark(), nil, s.italic)
 -- Group.new("CmpItemKind", g.Special)
 -- Group.new("CmpItemMenu", g.NonText)
+--
