@@ -91,6 +91,7 @@ return packer.startup(function(use)
     }
     use {
         'nvim-treesitter/nvim-treesitter-refactor',
+        'nvim-treesitter/nvim-treesitter-context',
         'nvim-treesitter/nvim-treesitter-textobjects',
         'nvim-treesitter/playground',
         'p00f/nvim-ts-rainbow',
@@ -194,6 +195,11 @@ return packer.startup(function(use)
     -- Packer
     use { 'sindrets/diffview.nvim', requires = 'nvim-lua/plenary.nvim' }
 
+    -- Plugin for integrating with browser extention https://github.com/glacambre/firenvim
+    use {
+        'glacambre/firenvim',
+        run = function() vim.fn['firenvim#install'](0) end
+    }
 
     -- Automatically set up your configuration after cloning packer.nvim
     -- Put this at the end after all plugins
