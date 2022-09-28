@@ -48,6 +48,7 @@ keymap("n", "<leader>db", dap.toggle_breakpoint, opts)
 keymap("n", "<leader>di", dap.step_into, opts)
 keymap("n", "<leader>dO", dap.step_out, opts)
 keymap("n", "<leader>do", dap.step_over, opts)
+keymap("n", "<leader>dt", dap.terminate, opts)
 keymap("n", "<leader>du", require('dapui').toggle, opts)
 
 --Luasnip
