@@ -73,9 +73,12 @@ return packer.startup(function(use)
     }
     use 'onsails/lspkind.nvim'
 
-    -- Telescope
     use {
         'nvim-telescope/telescope-fzf-native.nvim', -- Sorter for telescope to improve performance
+        run = 'make'
+    }
+    -- Telescope
+    use {
         'nvim-telescope/telescope-file-browser.nvim',
         run = 'make'
     }
