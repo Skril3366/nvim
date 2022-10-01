@@ -28,7 +28,7 @@ keymap("n", "<leader>fb", "<cmd>Telescope file_browser<cr>", opts)
 -- LSP
 local buf = vim.lsp.buf
 local diagnostic = vim.diagnostic
-keymap("n", "<leader>f", function() buf.format(nil, 100) end, opts)
+keymap("n", "<leader>f", function() buf.formatting() end, opts)
 keymap("n", "<leader>a", buf.code_action, opts)
 keymap("n", "gd", buf.definition, opts)
 keymap("n", "gD", buf.declaration, opts)

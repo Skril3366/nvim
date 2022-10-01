@@ -74,10 +74,17 @@ dap.configurations.scala = {
     {
         type = "scala",
         request = "launch",
-        name = "RunOrTest",
+        name = "Run",
         metals = {
-            runType = "runOrTestFile",
-            --args = { "firstArg", "secondArg", "thirdArg" }, -- here just as an example
+            runType = "run",
+        },
+    },
+    {
+        type = "scala",
+        request = "launch",
+        name = "Test File",
+        metals = {
+            runType = "testFile",
         },
     },
     {

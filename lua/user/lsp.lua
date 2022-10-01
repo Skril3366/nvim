@@ -90,7 +90,7 @@ local metals_config = require("metals").bare_config()
 
 metals_config.settings = {
     showImplicitArguments = true,
-    excludedPackages = { "akka.actor.typed.javadsl", "com.github.swagger.akka.javadsl" },
+    -- excludedPackages = { "akka.actor.typed.javadsl", "com.github.swagger.akka.javadsl" },
 }
 metals_config.on_attach = function(client, bufnr)
     require("metals").setup_dap()
@@ -106,4 +106,6 @@ vim.api.nvim_create_autocmd("FileType", {
 })
 
 local capabilities = vim.lsp.protocol.make_client_capabilities()
+capabilities.textDocument.completion.completionItem.snippetSupport = true
+
 metals_config.capabilities = require("cmp_nvim_lsp").update_capabilities(capabilities)
