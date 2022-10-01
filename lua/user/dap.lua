@@ -1,75 +1,54 @@
-require('dap-go').setup()
-require('nvim-dap-virtual-text').setup()
-require("dapui").setup({
-    -- icons = { expanded = "▾", collapsed = "▸" },
-    -- mappings = {
-    --   -- Use a table to apply multiple mappings
-    --   expand = { "<CR>", "<2-LeftMouse>" },
-    --   open = "o",
-    --   remove = "d",
-    --   edit = "e",
-    --   repl = "r",
-    --   toggle = "t",
-    -- },
-    -- -- Expand lines larger than the window
-    -- -- Requires >= 0.7
-    -- expand_lines = vim.fn.has("nvim-0.7"),
-    -- -- Layouts define sections of the screen to place windows.
-    -- -- The position can be "left", "right", "top" or "bottom".
-    -- -- The size specifies the height/width depending on position. It can be an Int
-    -- -- or a Float. Integer specifies height/width directly (i.e. 20 lines/columns) while
-    -- -- Float value specifies percentage (i.e. 0.3 - 30% of available lines/columns)
-    -- -- Elements are the elements shown in the layout (in order).
-    -- -- Layouts are opened in order so that earlier layouts take priority in window sizing.
-    -- layouts = {
-    --   {
-    --     elements = {
-    --       -- Elements can be strings or table with id and size keys.
-    --       { id = "scopes", size = 0.25 },
-    --       "breakpoints",
-    --       "stacks",
-    --       "watches",
-    --     },
-    --     size = 40, -- 40 columns
-    --     position = "left",
-    --   },
-    --   {
-    --     elements = {
-    --       "repl",
-    --       "console",
-    --     },
-    --     size = 0.25, -- 25% of total lines
-    --     position = "bottom",
-    --   },
-    -- },
-    -- floating = {
-    --   max_height = nil, -- These can be integers or a float between 0 and 1.
-    --   max_width = nil, -- Floats will be treated as percentage of your screen.
-    --   border = "single", -- Border style. Can be "single", "double" or "rounded"
-    --   mappings = {
-    --     close = { "q", "<Esc>" },
-    --   },
-    -- },
-    -- windows = { indent = 1 },
-    -- render = {
-    --   max_type_length = nil, -- Can be integer or nil.
-    -- }
-})
+-------------------------------------------------------------------------------
+------------------- Debugging Adapter Protocol configuration  -----------------
+-------------- see https://github.com/mfussenegger/nvim-dap -------------------
+-------------------------------------------------------------------------------
 
-local dap = require("dap")
-local dapui =  require("dapui")
+local ok, dap = pcall(require, 'dap')
+if not ok then
+    print("DAP failed to run")
+    return
+end
 
+-------------------------------------------------------------------------------
+----------------------- UI configuration and enhancements  --------------------
+-------------- see https://github.com/rcarriga/nvim-dap-ui --------------------
+-------------- and https://github.com/theHamsta/nvim-dap-virtual-text ---------
+-------------------------------------------------------------------------------
+
+-- Virtual text displayed on top of the code
+local ok, dap_virtual_text = pcall(require, 'nvim-dap-virtual-text')
+if not ok then
+    print("Dap Virtual Text failed to run")
+    return
+end
+
+dap_virtual_text.setup({})
+
+-- Pretty UI for DAP
+local ok, dapui = pcall(require, 'dapui')
+if not ok then
+    print("DapUI failed to run")
+    return
+end
+
+dapui.setup({})
+
+-- Automatically open and close dapui when called
 dap.listeners.after.event_initialized["dapui_config"] = function()
-    dapui.open()
+    dapui.open({})
 end
 dap.listeners.before.event_terminated["dapui_config"] = function()
-    dapui.close()
+    dapui.close({})
 end
 dap.listeners.before.event_exited["dapui_config"] = function()
-    dapui.close()
+    dapui.close({})
 end
 
+-------------------------------------------------------------------------------
+----------------------- Language specific configurations  ---------------------
+-------------------------------------------------------------------------------
 
+-- Scala
 dap.configurations.scala = {
     {
         type = "scala",
@@ -97,33 +76,34 @@ dap.configurations.scala = {
     },
 }
 
--- CPP and C
-
+-- Rust, C++ and C
 dap.adapters.lldb = {
-  type = 'executable',
-  command = '/usr/local/opt/llvm/bin/lldb-vscode', -- adjust as needed, must be absolute path
-  name = 'lldb'
+    type = 'executable',
+    command = '/usr/local/opt/llvm/bin/lldb-vscode', -- adjust as needed, must be absolute path
+    name = 'lldb'
 }
 
--- dap.adapters.cppdbg = {
---     id = 'cppdbg',
---     type = 'executable',
---     command = vim.fn.stdpath('data') .. '/mason/packages/cpptools/extension/debugAdapters/bin/OpenDebugAD8',
--- }
-
 dap.configurations.cpp = {
-  {
-    name = 'Launch',
-    type = 'lldb',
-    request = 'launch',
-    program = function()
-      return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
-    end,
-    cwd = '${workspaceFolder}',
-    stopOnEntry = false,
-    args = {},
-  },
+    {
+        name = 'Launch',
+        type = 'lldb',
+        request = 'launch',
+        program = function()
+            return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
+        end,
+        cwd = '${workspaceFolder}',
+        stopOnEntry = false,
+        args = {},
+    },
 }
 
 dap.configurations.c = dap.configurations.cpp
 dap.configurations.rust = dap.configurations.cpp
+
+-- Go lang
+local ok, dap_go = pcall(require, 'dap-go')
+if not ok then
+    print("DapGo failed to run")
+    return
+end
+dap_go.setup()

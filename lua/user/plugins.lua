@@ -1,3 +1,8 @@
+-------------------------------------------------------------------------------
+------------ "Packer" plugin manager installation and set up ------------------
+------------- see https://github.com/wbthomason/packer.nvim -------------------
+-------------------------------------------------------------------------------
+
 local fn = vim.fn
 
 -- Automatically install packer
@@ -16,30 +21,23 @@ end
 
 vim.cmd [[packadd packer.nvim]]
 
--- Use a protected call so we don't error out on first use
 local status_ok, packer = pcall(require, "packer")
 if not status_ok then
     print("Packer is not installed")
     return
 end
 
--- Autocommand that reloads neovim whenever you save the plugins.lua file
-local packer_user_config_id = vim.api.nvim_create_augroup("packer_user_config", { clear = true })
+-- Reload neovim whenever you save the plugins.lua file
+local packer_user_config = vim.api.nvim_create_augroup("packer_user_config", { clear = true })
 
--- vim.api.nvim_create_autocmd({ "BufWritePost" }, {
---     pattern = "plugins.lua",
---     group = packer_user_config_id,
---     callback = function()
---         require('plugins')
---         packer.sync()
---     end
--- })
-vim.cmd([[
-  augroup packer_user_config
-    autocmd!
-    autocmd BufWritePost plugins.lua source <afile> | PackerSync
-  augroup end
-]])
+vim.api.nvim_create_autocmd("BufWritePost", {
+    pattern = {"plugins.lua"},
+    callback = function()
+        vim.cmd("source %")
+        packer.sync()
+    end,
+    group = packer_user_config,
+})
 
 -- Have packer use a popup window
 packer.init {
@@ -55,51 +53,56 @@ packer.init {
 -- Install your plugins here
 return packer.startup(function(use)
     -- Utils
-    use "wbthomason/packer.nvim" -- Have packer manage itself
-    use "nvim-lua/popup.nvim" -- An implementation of the Popup API from vim in Neovim
-    use "nvim-lua/plenary.nvim" -- Useful lua functions used ny lots of plugins
-    use 'kyazdani42/nvim-web-devicons' -- Pretty dev icons for other plugin usage
-    -- use 'tjdevries/complextras'
+    use {
+        'wbthomason/packer.nvim', -- Have packer manage itself
+        'nvim-lua/popup.nvim', -- An implementation of the Popup API
+        'nvim-lua/plenary.nvim', -- Useful lua functions used ny lots of plugins
+        'kyazdani42/nvim-web-devicons', -- Pretty dev icons for other plugin usage
+    }
 
     -- Fun
-    use "mbbill/undotree" -- Undotree visual representation
-    -- use "ThePrimeagen/vim-be-good"
+    use 'mbbill/undotree' -- Undotree visual representation
+    -- use 'ThePrimeagen/vim-be-good'
 
     -- Customization
-    use 'folke/tokyonight.nvim' -- Colorscheme
     use {
-        'nvim-lualine/lualine.nvim',
-        requires = { 'kyazdani42/nvim-web-devicons', opt = true }
+        'folke/tokyonight.nvim', -- Colorscheme
+        config = function()
+            require("user.tokyonight")
+        end
     }
-    use 'onsails/lspkind.nvim'
+    use {
+        'nvim-lualine/lualine.nvim', -- Status and tab lines
+        config = function()
+            require("user.lualine")
+        end
+    }
 
-    use {
-        'nvim-telescope/telescope-fzf-native.nvim', -- Sorter for telescope to improve performance
-        run = 'make'
-    }
+
     -- Telescope
     use {
-        'nvim-telescope/telescope-file-browser.nvim',
-        run = 'make'
-    }
-    use {
-        'nvim-telescope/telescope.nvim',
-        requires = { { 'nvim-lua/plenary.nvim' } }
+        'nvim-telescope/telescope.nvim', -- Highly exendable fuzzy finder over lists
+        'nvim-telescope/telescope-dap.nvim',
+        { 'nvim-telescope/telescope-fzf-native.nvim', -- Sorter for telescope to improve performance
+            run = 'make' },
     }
 
     -- TreeSitter
     use {
-        'nvim-treesitter/nvim-treesitter',
-        -- run = "TSUpdate"
+        'nvim-treesitter/nvim-treesitter', -- User-friendly interface and basic functionality for TreeSitter
+        config = function()
+            require("user.treesitter")
+        end
     }
-    use {
+    use { -- Different modules for TreeSitter
         'nvim-treesitter/nvim-treesitter-refactor',
-        'nvim-treesitter/nvim-treesitter-context',
+        'nvim-treesitter/nvim-treesitter-context', -- Show current context as top line
         'nvim-treesitter/nvim-treesitter-textobjects',
-        'nvim-treesitter/playground',
-        'p00f/nvim-ts-rainbow',
-        requires = { { 'nvim-treesitter/nvim-treesitter' } }
+        'nvim-treesitter/playground', -- TS information viewer
+        'p00f/nvim-ts-rainbow', -- Rainbow parentheses
     }
+
+    -- NOTE: in neovim 0.8.0 it will be built in feature
     use {
         'lewis6991/spellsitter.nvim',
         config = function()
@@ -115,31 +118,31 @@ return packer.startup(function(use)
     }
 
     -- LSP
+    use 'onsails/lspkind.nvim' -- VScode-like pictograms for built in lsp
     use {
-        "williamboman/mason.nvim",
-        "williamboman/mason-lspconfig.nvim",
-        "neovim/nvim-lspconfig",
+        'williamboman/mason.nvim',
+        'williamboman/mason-lspconfig.nvim',
+        'neovim/nvim-lspconfig',
     }
-    use({ 'scalameta/nvim-metals', requires = { "nvim-lua/plenary.nvim" } })
+    use({ 'scalameta/nvim-metals', requires = { 'nvim-lua/plenary.nvim' } })
 
     -- DAP
     use {
-        "mfussenegger/nvim-dap",
-        "leoluz/nvim-dap-go",
-        "rcarriga/nvim-dap-ui",
-        "theHamsta/nvim-dap-virtual-text",
-        "nvim-telescope/telescope-dap.nvim",
+        'mfussenegger/nvim-dap',
+        'leoluz/nvim-dap-go',
+        'rcarriga/nvim-dap-ui',
+        'theHamsta/nvim-dap-virtual-text',
     }
 
     -- Other
-    use { "akinsho/toggleterm.nvim", tag = 'v2.*', config = function()
-        require("toggleterm").setup()
+    use { 'akinsho/toggleterm.nvim', tag = 'v2.*', config = function()
+        require('toggleterm').setup()
     end }
     -- use 'tpope/vim-commentary' -- commenting code in any language
     -- use {
-    --   "kylechui/nvim-surround", -- (surrouning text)
+    --   'kylechui/nvim-surround', -- (surrouning text)
     --   config = function()
-    --     require("nvim-surround").setup({
+    --     require('nvim-surround').setup({
     --       -- Configuration here, or leave empty to use defaults
     --     })
     --   end
@@ -148,11 +151,11 @@ return packer.startup(function(use)
     use {
         'echasnovski/mini.nvim',
         config = function()
-            require('mini.surround').setup()
-            require('mini.comment').setup()
-            require('mini.indentscope').setup()
-            require('mini.pairs').setup()
-            require('mini.trailspace').setup()
+            require('mini.surround').setup({})
+            require('mini.comment').setup({})
+            require('mini.indentscope').setup({})
+            require('mini.pairs').setup({})
+            require('mini.trailspace').setup({})
         end
     }
 
@@ -162,8 +165,8 @@ return packer.startup(function(use)
         requires = {
             { 'KadoBOT/cmp-plugins',
                 config = function()
-                    require("cmp-plugins").setup({
-                        files = { "plugins.lua", os.getenv("HOME") .. "/.config/nvim/lua/user/plugins.lua" } -- Recommended: use static filenames or partial paths
+                    require('cmp-plugins').setup({
+                        files = { 'plugins.lua', os.getenv('HOME') .. '/.config/nvim/lua/user/plugins.lua' } -- Recommended: use static filenames or partial paths
                     })
                 end },
             { 'davidsierradz/cmp-conventionalcommits' },
@@ -185,15 +188,15 @@ return packer.startup(function(use)
     -- TODO: setup this engine
     use {
         'L3MON4D3/LuaSnip',
-        "rafamadriz/friendly-snippets",
+        'rafamadriz/friendly-snippets',
     }
 
 
     -- install without yarn or npm
-    use({ "iamcco/markdown-preview.nvim",
-        run = "cd app && npm install",
-        setup = function() vim.g.mkdp_filetypes = { "markdown" } end,
-        ft = { "markdown" },
+    use({ 'iamcco/markdown-preview.nvim',
+        run = 'cd app && npm install',
+        setup = function() vim.g.mkdp_filetypes = { 'markdown' } end,
+        ft = { 'markdown' },
     })
     -- Packer
     use { 'sindrets/diffview.nvim', requires = 'nvim-lua/plenary.nvim' }
@@ -207,6 +210,6 @@ return packer.startup(function(use)
     -- Automatically set up your configuration after cloning packer.nvim
     -- Put this at the end after all plugins
     if PACKER_BOOTSTRAP then
-        require("packer").sync()
+        require('packer').sync()
     end
 end)
