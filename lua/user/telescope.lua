@@ -2,7 +2,7 @@ require('telescope').setup{
   defaults = {
     prompt_prefix = "",
     vimgrep_arguments = {
-      "rg",
+      "rg", -- requires ripgrep to be installed (for e.g. `brew install ripgrep`)
       "--color=never",
       "--no-heading",
       "--with-filename",
@@ -22,7 +22,7 @@ require('telescope').setup{
   },
   pickers = {
     find_files = {
-      find_command = { "fd", "--type", "f", "--strip-cwd-prefix" },
+      find_command = { "fd", "--type", "f", "--strip-cwd-prefix" }, -- requires fd to be installed (for e.g. `brew install fd`)
       -- theme = "cursor",
        -- previewer = "previewers.cat.new",
     },
@@ -38,10 +38,6 @@ require('telescope').setup{
     -- builtin picker
   },
   extensions = {
-    file_browser = {
-      theme = "ivy",
-      hijack_netrw = true,
-    }
     -- Your extension configuration goes here:
     -- extension_name = {
     --   extension_config_key = value,
@@ -50,5 +46,4 @@ require('telescope').setup{
   }
 }
 require('telescope').load_extension("fzf")
-require("telescope").load_extension ("file_browser")
 

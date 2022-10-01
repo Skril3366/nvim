@@ -6,10 +6,11 @@
 
 local ok, lspkind = pcall(require, "lspkind")
 if not ok then
-    return
+    print("Lspkind is not installed")
+else
+    lspkind.init()
 end
 
-lspkind.init()
 
 local status_ok, cmp = pcall(require, 'cmp')
 if not status_ok then

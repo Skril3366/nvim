@@ -1,4 +1,10 @@
-require("toggleterm").setup {
+local status_ok, toggleterm = pcall(require, 'toggleterm')
+if not status_ok then
+    print("Tree sitter failed to run")
+    return
+end
+
+toggleterm.setup {
   -- size can be a number or function which is passed the current terminal
   size = function(term)
     if term.direction == "horizontal" then
@@ -36,5 +42,3 @@ require("toggleterm").setup {
     }
   }
 }
-
-require('toggleterm').setup {}

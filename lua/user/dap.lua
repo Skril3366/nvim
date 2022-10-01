@@ -19,29 +19,27 @@ end
 local ok, dap_virtual_text = pcall(require, 'nvim-dap-virtual-text')
 if not ok then
     print("Dap Virtual Text failed to run")
-    return
+else
+    dap_virtual_text.setup({})
 end
 
-dap_virtual_text.setup({})
 
 -- Pretty UI for DAP
 local ok, dapui = pcall(require, 'dapui')
 if not ok then
     print("DapUI failed to run")
-    return
-end
-
-dapui.setup({})
-
--- Automatically open and close dapui when called
-dap.listeners.after.event_initialized["dapui_config"] = function()
-    dapui.open({})
-end
-dap.listeners.before.event_terminated["dapui_config"] = function()
-    dapui.close({})
-end
-dap.listeners.before.event_exited["dapui_config"] = function()
-    dapui.close({})
+else
+    dapui.setup({})
+    -- Automatically open and close dapui when called
+    dap.listeners.after.event_initialized["dapui_config"] = function()
+        dapui.open({})
+    end
+    dap.listeners.before.event_terminated["dapui_config"] = function()
+        dapui.close({})
+    end
+    dap.listeners.before.event_exited["dapui_config"] = function()
+        dapui.close({})
+    end
 end
 
 -------------------------------------------------------------------------------
@@ -104,6 +102,6 @@ dap.configurations.rust = dap.configurations.cpp
 local ok, dap_go = pcall(require, 'dap-go')
 if not ok then
     print("DapGo failed to run")
-    return
+else
+    dap_go.setup()
 end
-dap_go.setup()

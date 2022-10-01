@@ -1,8 +1,10 @@
+-- Needed for completion
+vim.opt.completeopt = { "menu", "menuone", "noselect" }
+
 -- Aliases
 local o = vim.o
 local wo = vim.wo
 local bo = vim.bo
-
 
 -- Line numbers
 o.relativenumber = true -- relative line numbers
@@ -16,16 +18,7 @@ o.expandtab = true -- insert spaces instead of tabs in insert mode
 
 -- Folding
 wo.foldmethod = "expr" -- default fold method as expression
--- vim.api.nvim_win_set_option(0, 'foldmethod', 'expr')
--- vim.api.nvim_win_set_option(0, 'foldexpr', 'nvim_treesitter#foldexpr()')
 wo.foldexpr = "nvim_treesitter#foldexpr()" -- tree sitter foldmethod
--- vim.cmd("setlocal foldexpr=nvim_treesitter#foldexpr()")
--- vim.api.nvim_create_autocmd("FileType", {
---   pattern="*",
---   callback = function ()
---     vim.cmd("setlocal foldexpr=nvim_treesitter#foldexpr()")
---   end
--- })
 o.foldlevelstart = 99
 wo.foldlevel = 99
 
@@ -68,9 +61,9 @@ o.filetype = true -- enable filetype detection
 
 -- Filetype specific
 
-vim.cmd([[
-autocmd FileType * setlocal spell
-]])
+-- vim.cmd([[
+-- autocmd FileType * setlocal spell
+-- ]])
 
 -- local spell_group = vim.api.nvim_create_augroup("Set spell", { clear = true })
 --
