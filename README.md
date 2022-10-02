@@ -19,11 +19,16 @@ them.
 - [gcc](https://github.com/gcc-mirror/gcc) or
   [clang](https://github.com/llvm-mirror/clang)
 
+MacOS:
+- [Brew](https://brew.sh/)
+
 ## Installation
 
 ### Unix
 
 Simply run `install.sh` script
+
+
 
 Currently supported:
 - [x] macOS
