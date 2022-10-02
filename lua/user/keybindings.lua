@@ -119,6 +119,7 @@ end
 
 ------------------------------- Other -----------------------------------------
 keymap("n", "<leader>u", '<cmd>UndotreeToggle<cr><cmd>UndotreeFocus<cr>', opts)
+keymap("n", "<leader>i", '<cmd>cd %:p:h<cr>', opts)
 
 vim.api.nvim_create_autocmd("FileType", {
     pattern = { "latex", "tex" },
