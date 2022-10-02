@@ -58,20 +58,17 @@ o.lazyredraw = true -- don't update buffer while executing commands
 o.swapfile = false -- don't create swap file
 o.filetype = true -- enable filetype detection
 
+-- Disable unused providers
+vim.cmd ("let g:loaded_python3_provider = 0")
+vim.cmd ("let g:loaded_ruby_provider = 0")
+vim.cmd ("let g:loaded_node_provider = 0")
+vim.cmd ("let g:loaded_perl_provider = 0")
 
--- Filetype specific
-
--- vim.cmd([[
--- autocmd FileType * setlocal spell
--- ]])
-
--- local spell_group = vim.api.nvim_create_augroup("Set spell", { clear = true })
---
--- vim.api.nvim_create_autocmd("FileType", {
---   group = spell_group,
---   pattern = { "*.tex", "*.md", "*.txt" },
---   callback = function()
---     vim.cmd("setlocal spell")
---     -- vim.cmd("setlocal textwidth=80")
---   end
--- })
+-- Set spell for all files
+local spell_group = vim.api.nvim_create_augroup("Set spell", { clear = true })
+vim.api.nvim_create_autocmd("FileType", {
+  callback = function()
+    vim.cmd "setlocal spell"
+  end,
+  group = spell_group,
+})
