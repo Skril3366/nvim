@@ -4,6 +4,8 @@ undodir/
 .netrwhist
 .stignore
 .stversions/
+.stversions/
+spell/
 
 
 plugged
