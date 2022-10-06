@@ -120,6 +120,10 @@ end
 ------------------------------- Other -----------------------------------------
 keymap("n", "<leader>u", '<cmd>UndotreeToggle<cr><cmd>UndotreeFocus<cr>', opts)
 keymap("n", "<leader>i", '<cmd>cd %:p:h<cr>', opts)
+-- keymap("n", "<leader>t", function () 
+--     vim.cmd("vimgrep /\<TODO\>/j **/*.*")
+--     vim.cmd("scope")
+-- end, opts)
 
 vim.api.nvim_create_autocmd("FileType", {
     pattern = { "latex", "tex" },
