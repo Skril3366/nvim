@@ -31,7 +31,7 @@ end
 local packer_user_config = vim.api.nvim_create_augroup("packer_user_config", { clear = true })
 
 vim.api.nvim_create_autocmd("BufWritePost", {
-    pattern = {"plugins.lua"},
+    pattern = { "plugins.lua" },
     callback = function()
         vim.cmd("source %")
         packer.sync()
@@ -200,6 +200,14 @@ return packer.startup(function(use)
     })
     -- Packer
     use { 'sindrets/diffview.nvim', requires = 'nvim-lua/plenary.nvim' }
+
+    -- Harpoon
+    use {
+        'ThePrimeagen/harpoon',
+        config = function()
+            require('harpoon').setup({})
+        end
+    }
 
     -- Plugin for integrating with browser extention https://github.com/glacambre/firenvim
     use {

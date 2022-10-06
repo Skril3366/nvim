@@ -57,6 +57,20 @@ else
     -- Other
     keymap("n", "<leader>D", telescope.diagnostics, opts)
     keymap("n", "<leader>b", telescope.buffers, opts)
+    keymap("n", "<leader>M", "<cmd>Telescope harpoon marks<cr>", opts)
+    -- Harpoon
+    local hm_ok, harpoon_mark = pcall(require, 'harpoon.mark')
+    local hu_ok, harpoon_ui = pcall(require, 'harpoon.ui')
+
+    if not (hm_ok or hu_ok) then
+        print("Harpoon is not installed")
+    else
+        keymap("n", "<leader>h", harpoon_mark.add_file, opts)
+        keymap("n", "<leader>U", harpoon_ui.toggle_quick_menu, opts)
+        keymap("n", "<leader>n", function() harpoon_ui.nav_file(1) end, opts)
+        keymap("n", "<leader>e", function() harpoon_ui.nav_file(2) end, opts)
+        keymap("n", "<leader>t", function() harpoon_ui.nav_file(3) end, opts)
+    end
 end
 
 ------------------------------- DAP -------------------------------------------
@@ -120,7 +134,7 @@ end
 ------------------------------- Other -----------------------------------------
 keymap("n", "<leader>u", '<cmd>UndotreeToggle<cr><cmd>UndotreeFocus<cr>', opts)
 keymap("n", "<leader>i", '<cmd>cd %:p:h<cr>', opts)
--- keymap("n", "<leader>t", function () 
+-- keymap("n", "<leader>t", function ()
 --     vim.cmd("vimgrep /\<TODO\>/j **/*.*")
 --     vim.cmd("scope")
 -- end, opts)
