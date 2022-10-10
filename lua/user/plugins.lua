@@ -192,6 +192,8 @@ return packer.startup(function(use)
     }
 
 
+    -- .conf filetype support
+    use 'satabin/hocon-vim'
     -- install without yarn or npm
     use({ 'iamcco/markdown-preview.nvim',
         run = 'cd app && npm install',
