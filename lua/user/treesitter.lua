@@ -21,13 +21,18 @@ configs.setup {
     },
     incremental_selection = {
         enable = true,
+        keymaps = {
+            init_selection = "gnn",
+            node_incremental = "grn",
+            scope_incremental = "grc",
+            node_decremental = "grm",
+        },
     },
     indent = {
         enable = true
     },
     highlight = {
         enable = true,
-        -- disable = {"lua"}, -- it doesn't work with lua
     },
     textobjects = {
         select = {
@@ -37,7 +42,6 @@ configs.setup {
             lookahead = true,
 
             keymaps = {
-                -- You can use the capture groups defined in textobjects.scm
                 ["af"] = "@function.outer",
                 ["if"] = "@function.inner",
                 ["ab"] = "@block.outer",
@@ -54,19 +58,19 @@ configs.setup {
             clear_on_cursor_move = true,
         },
         highlight_current_scope = { enable = true },
-        -- smart_rename = {
-        --     enable = true,
-        --     keymaps = {
-        --         smart_rename = "gr",
-        --     },
-        -- },
+        smart_rename = {
+            enable = false,
+            -- keymaps = {
+            --     smart_rename = "gr",
+            -- },
+        },
         navigation = {
-            enable = true,
-            keymaps = {
-                -- goto_definition = "gd",
-                list_definitions = "gnD",
-                list_definitions_toc = "gO",
-            },
+            enable = false,
+            -- keymaps = {
+            --     -- goto_definition = "gd",
+            --     list_definitions = "gnD",
+            --     list_definitions_toc = "gO",
+            -- },
         },
     },
     rainbow = {
