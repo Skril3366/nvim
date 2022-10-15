@@ -31,7 +31,10 @@ masonlsp.setup_handlers {
     end,
     -- Server specific handlers
     ["sumneko_lua"] = function()
-        require'lspconfig'.sumneko_lua.setup(require("user.lsp-servers.lua"))
+        require 'lspconfig'.sumneko_lua.setup(require("user.lsp-servers.lua"))
+    end,
+    ["jdtls"] = function()
+        -- Empty function not to run it from Mason
     end
 }
 
@@ -43,7 +46,7 @@ require("user.lsp-servers.scala")
 
 -- Set virtual text support
 vim.lsp.handlers["textDocument/publishDiagnostics"] =
-    vim.lsp.with(
-        vim.lsp.diagnostic.on_publish_diagnostics,
-        { virtual_text = true, }
-    )
+vim.lsp.with(
+    vim.lsp.diagnostic.on_publish_diagnostics,
+    { virtual_text = true, }
+)

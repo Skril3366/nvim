@@ -16,7 +16,11 @@ end
 local nvim_metals_group = vim.api.nvim_create_augroup("nvim-metals", { clear = true })
 
 vim.api.nvim_create_autocmd("FileType", {
-    pattern = { "scala", "sbt", "java" },
+    pattern = {
+        "scala",
+        "sbt",
+        -- "java"
+    },
     callback = function()
         require("metals").initialize_or_attach(metals_config)
     end,
@@ -25,4 +29,4 @@ vim.api.nvim_create_autocmd("FileType", {
 
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities.textDocument.completion.completionItem.snippetSupport = true
-metals_config.capabilities = require("cmp_nvim_lsp").update_capabilities(capabilities)
+metals_config.capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
