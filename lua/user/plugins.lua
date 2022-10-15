@@ -124,7 +124,23 @@ return packer.startup(function(use)
         'williamboman/mason-lspconfig.nvim',
         'neovim/nvim-lspconfig',
     }
-    use({ 'scalameta/nvim-metals', requires = { 'nvim-lua/plenary.nvim' } })
+    use {
+        'j-hui/fidget.nvim',
+        config = function()
+            require "fidget".setup {
+                window = {
+                    relative = "editor", -- where to anchor, either "win" or "editor"
+                    blend = 0, -- &winblend for the window
+                    zindex = nil, -- the zindex value for the window
+                    border = "none", -- style of border for the fidget window
+                },
+            }
+        end
+    }
+    -- Scala
+    use('scalameta/nvim-metals')
+    -- Java
+    use('mfussenegger/nvim-jdtls')
 
     -- DAP
     use {
@@ -208,6 +224,17 @@ return packer.startup(function(use)
         'ThePrimeagen/harpoon',
         config = function()
             require('harpoon').setup({})
+        end
+    }
+
+    -- Display hex colors
+    use {
+        'norcalli/nvim-colorizer.lua',
+        config = function()
+            require 'colorizer'.setup({
+                'css';
+                'javascript';
+            }, { mode = 'background' })
         end
     }
 
