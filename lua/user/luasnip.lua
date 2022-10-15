@@ -1,5 +1,6 @@
 local ok, luasnip = pcall(require, "luasnip")
 if not ok then
+    print("Lua snip filed to run")
     return
 end
 

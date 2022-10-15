@@ -1,6 +1,6 @@
 local status_ok, toggleterm = pcall(require, 'toggleterm')
 if not status_ok then
-    print("Tree sitter failed to run")
+    print("Toggle term is not installed")
     return
 end
 
