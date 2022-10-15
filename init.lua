@@ -15,3 +15,5 @@ require'user.cmp' -- Completion Engine
 require'user.luasnip' -- Snippets
 require'user.lsp' -- Language Server Protocol + LSP, DAP and lineter install manager
 require'user.dap' -- Debugging Adapter Protocol
+
+require'user.nvim-tree' -- File explorer inside NeoVim
