@@ -6,6 +6,10 @@ local o = vim.o
 local wo = vim.wo
 local bo = vim.bo
 
+-- Needed for nvim tree https://github.com/nvim-tree/nvim-tree.lua/
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
+
 -- Line numbers
 o.relativenumber = true -- relative line numbers
 o.nu = true -- display current line number

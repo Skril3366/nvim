@@ -130,6 +130,18 @@ else
         opts)
 end
 
+------------------------------- NvimTree ---------------------------------------
+
+local ok, nvim_tree = pcall(require, 'nvim-tree')
+
+if not ok then
+    print("NvimTree is not installed")
+else
+    keymap("n", "<leader>t", function()
+        nvim_tree.toggle()
+    end,
+        opts)
+end
 
 ------------------------------- Other -----------------------------------------
 keymap("n", "<leader>u", '<cmd>UndotreeToggle<cr><cmd>UndotreeFocus<cr>', opts)
