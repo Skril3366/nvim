@@ -252,6 +252,17 @@ return packer.startup(function(use)
         },
         tag = 'nightly', -- optional, updated every week. (see issue #1193)
     }
+    -- Project managenet
+    use {
+        "ahmedkhalf/project.nvim",
+        config = function()
+            require("project_nvim").setup {
+                -- your configuration comes here
+                -- or leave it empty to use the default settings
+                -- refer to the configuration section below
+            }
+        end
+    }
 
     -- Automatically set up your configuration after cloning packer.nvim
     -- Put this at the end after all plugins

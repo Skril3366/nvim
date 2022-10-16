@@ -58,8 +58,14 @@ if not ok then
     return
 end
 
-local ok, fzf = pcall(telescope.load_extension, 'harpoon')
+local ok, harpoon = pcall(telescope.load_extension, 'harpoon')
 if not ok then
     print("Could not load telescope harpoon extension")
+    return
+end
+
+local ok, project = pcall(telescope.load_extension, 'projects')
+if not ok then
+    print("Could not load telescope project extension")
     return
 end
