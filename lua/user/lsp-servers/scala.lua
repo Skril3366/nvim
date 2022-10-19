@@ -7,6 +7,7 @@ local metals_config = require("metals").bare_config()
 
 metals_config.settings = {
     showImplicitArguments = true,
+    superMethodLensesEnabled = true,
 }
 
 metals_config.on_attach = function(client, bufnr)
