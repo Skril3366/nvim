@@ -7,16 +7,17 @@ DEPENDENCIES="neovim
               cmake
               gcc"
 if [[ "$OSTYPE" == "darwin"* ]]; then
-    if ! command -v brew &> /dev/null
+
+    if type brew &>/dev/null
         then
-            echo "Brew could not be found"
-            echo "None of the dependencies are installed"
-            exit
-        else
             for DEP in $DEPENDENCIES
             do
             brew install "$DEP"
             done
+        else
+            echo "Brew could not be found"
+            echo "None of the dependencies are installed"
+            exit
         fi
 # elif [[ "$OSTYPE" == "linux-gnu"* ]]; then
 #         # ...
