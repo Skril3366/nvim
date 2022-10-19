@@ -35,6 +35,12 @@ masonlsp.setup_handlers {
     end,
     ["jdtls"] = function()
         -- Empty function not to run it from Mason
+    end,
+    ["bashls"] = function()
+        require("lspconfig").bashls.setup {
+            on_attach = attach,
+            filetypes = {"sh", "zsh", "zshrc"}
+        }
     end
 }
 
