@@ -149,7 +149,7 @@ local config = {
                 },
             },
             format = {
-                enabled = false,
+                enabled = true,
                 -- settings = {
                 --   profile = "asdf"
                 -- }
