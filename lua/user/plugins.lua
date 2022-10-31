@@ -68,9 +68,17 @@ return packer.startup(function(use)
     use {
         'folke/tokyonight.nvim', -- Colorscheme
         config = function()
-            require("user.tokyonight")
+            require("user.colorschemes.tokyonight")
         end
     }
+
+
+    -- use {
+    --     'morhetz/gruvbox',
+    --     config = function()
+    --         require("user.colorschemes.gruvbox")
+    --     end
+    -- }
     use {
         'nvim-lualine/lualine.nvim', -- Status and tab lines
         config = function()
