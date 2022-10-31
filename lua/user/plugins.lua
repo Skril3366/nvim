@@ -72,6 +72,7 @@ return packer.startup(function(use)
         end
     }
 
+    use 'David-Kunz/markid'
 
     -- use {
     --     'morhetz/gruvbox',

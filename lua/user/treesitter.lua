@@ -178,4 +178,42 @@ require 'treesitter-context'.setup {
     -- Separator between context and content. Should be a single character string, like '-'.
     -- When separator is set, the context will only show up when there are at least 2 lines above cursorline.
     separator = nil,
+    markid = { enable = true },
+}
+
+local status_ok, markid = pcall(require, 'markid')
+if not status_ok then
+    print("Markid is not installed")
+    return
+end
+
+local markid_colors = {
+    medium = {
+        '#2ac3de',
+        '#73daca',
+        '#7aa2f7',
+        '#7dcfff',
+        -- '#9ece6a',
+        '#b4f9f8',
+        '#bb9af7',
+        '#e0af68',
+        '#f7768e',
+        '#ff9e64',
+    },
+    -- bright = { "#f5c0c0", "#f5d3c0", "#f5eac0", "#dff5c0", "#c0f5c8", "#c0f5f1", "#c0dbf5", "#ccc0f5", "#f2c0f5",
+    --     "#98fc03" },
+    -- dark = { "#c99d9d", "#c9a99d", "#c9b79d", "#c9c39d", "#bdc99d", "#a9c99d", "#9dc9b6", "#9dc2c9", "#9da9c9",
+    --     "#b29dc9" }
+}
+
+require 'nvim-treesitter.configs'.setup {
+    markid = {
+        enable = true,
+        colors = markid_colors.medium,
+        queries = markid.queries,
+        is_supported = function(lang)
+            local queries = configs.get_module("markid").queries
+            return pcall(vim.treesitter.parse_query, lang, queries[lang] or queries['default'])
+        end
+    }
 }
