@@ -54,8 +54,15 @@ wo.signcolumn = "yes:2" -- automatically set column for signs
 -- o.wildmenu = true -- ????
 o.textwidth = 80 -- automatically breaks the line if it's longer than 80 symbols
 
+-- update file when it's changed
+o.autoread = true
+vim.api.nvim_create_autocmd("FocusGained", {
+    callback = function()
+        vim.api.nvim_command('checktime')
+    end,
+    group = vim.api.nvim_create_augroup("Autoreload", { clear = true })
+})
 -- Other
-o.autoread = true -- update file when it's changed
 -- o.autochdir = true -- automatically change working directory
 o.hidden = true -- don't unload buffers
 o.lazyredraw = true -- don't update buffer while executing commands
@@ -63,16 +70,15 @@ o.swapfile = false -- don't create swap file
 o.filetype = true -- enable filetype detection
 
 -- Disable unused providers
-vim.cmd ("let g:loaded_python3_provider = 0")
-vim.cmd ("let g:loaded_ruby_provider = 0")
-vim.cmd ("let g:loaded_node_provider = 0")
-vim.cmd ("let g:loaded_perl_provider = 0")
+vim.cmd("let g:loaded_python3_provider = 0")
+vim.cmd("let g:loaded_ruby_provider = 0")
+vim.cmd("let g:loaded_node_provider = 0")
+vim.cmd("let g:loaded_perl_provider = 0")
 
 -- Set spell for all files
-local spell_group = vim.api.nvim_create_augroup("Set spell", { clear = true })
 vim.api.nvim_create_autocmd("FileType", {
-  callback = function()
-    vim.cmd "setlocal spell"
-  end,
-  group = spell_group,
+    callback = function()
+        vim.cmd "setlocal spell"
+    end,
+    group = vim.api.nvim_create_augroup("Set spell", { clear = true })
 })
