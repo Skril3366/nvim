@@ -15,9 +15,9 @@ o.relativenumber = true -- relative line numbers
 o.nu = true -- display current line number
 
 -- TABs
-o.tabstop = 4 -- number of spaces that form 1 tab. Should be 8 by default
-o.softtabstop = 4 -- number of spaces that form 1 tab
-o.shiftwidth = 4 -- number of spaces that form 1 tab
+o.tabstop = 2 -- number of spaces that form 1 tab. Should be 8 by default
+o.softtabstop = 2 -- number of spaces that form 1 tab
+o.shiftwidth = 2 -- number of spaces that form 1 tab
 o.expandtab = true -- insert spaces instead of tabs in insert mode
 
 -- Folding
