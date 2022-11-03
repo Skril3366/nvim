@@ -30,3 +30,14 @@ nvim_tree.setup({
     },
 
 })
+
+vim.api.nvim_create_autocmd("BufEnter", {
+    callback = function()
+        -- keymap("n", "<leader>c", '<cmd>!pdflatex %<cr>', opts)
+        vim.cmd [[
+            set foldmethod=expr
+            set foldexpr=nvim_treesitter#foldexpr()
+        ]]
+    end,
+    group = vim.api.nvim_create_augroup("TS fold", { clear = true }),
+})

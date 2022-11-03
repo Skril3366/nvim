@@ -134,6 +134,7 @@ return packer.startup(function(use)
         'williamboman/mason-lspconfig.nvim',
         'neovim/nvim-lspconfig',
     }
+    use 'jose-elias-alvarez/null-ls.nvim'
     use {
         'j-hui/fidget.nvim',
         config = function()
@@ -159,6 +160,8 @@ return packer.startup(function(use)
         'rcarriga/nvim-dap-ui',
         'theHamsta/nvim-dap-virtual-text',
     }
+    -- Latex
+    -- use 'lervag/vimtex'
 
     -- Other
     use { 'akinsho/toggleterm.nvim', tag = 'v2.*', config = function()
