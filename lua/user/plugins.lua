@@ -62,7 +62,8 @@ return packer.startup(function(use)
 
     -- Fun
     use 'mbbill/undotree' -- Undotree visual representation
-    -- use 'ThePrimeagen/vim-be-good'
+    use 'ThePrimeagen/vim-be-good'
+    use 'tjdevries/train.nvim'
 
     -- Customization
     use {
