@@ -17,7 +17,24 @@ if not ok then
     return
 end
 
-masonlsp.setup()
+-- TODO: add servers here
+masonlsp.setup(
+  -- ensure_installed = {
+  --   ""
+  -- }
+)
+
+local ok, mason_null_ls = pcall(require, 'mason-null-ls')
+if not ok then
+    print("Mason null-ls failed to run")
+    return
+end
+
+mason_null_ls.setup(
+  -- ensure_installed = {
+  --   ""
+  -- }
+)
 
 -- General on_attach function for LSP servers
 local attach = function(client)

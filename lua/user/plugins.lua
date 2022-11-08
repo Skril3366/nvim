@@ -112,13 +112,13 @@ return packer.startup(function(use)
         'p00f/nvim-ts-rainbow', -- Rainbow parentheses
     }
 
-    -- NOTE: in neovim 0.8.0 it will be built in feature
-    use {
-        'lewis6991/spellsitter.nvim',
-        config = function()
-            require('spellsitter').setup()
-        end
-    }
+    -- -- NOTE: in neovim 0.8.0 it will be built in feature
+    -- use {
+    --     'lewis6991/spellsitter.nvim',
+    --     config = function()
+    --         require('spellsitter').setup()
+    --     end
+    -- }
     use {
         'm-demare/hlargs.nvim', -- highlighting arguments of functions
         requires = { 'nvim-treesitter/nvim-treesitter' },
@@ -129,9 +129,12 @@ return packer.startup(function(use)
 
     -- LSP
     use 'onsails/lspkind.nvim' -- VScode-like pictograms for built in lsp
+  -- TODO: setup
+    use 'glepnir/lspsaga.nvim'
     use {
         'williamboman/mason.nvim',
         'williamboman/mason-lspconfig.nvim',
+        'jayp0521/mason-null-ls.nvim',
         'neovim/nvim-lspconfig',
     }
     use 'jose-elias-alvarez/null-ls.nvim'
@@ -214,7 +217,6 @@ return packer.startup(function(use)
         }
     }
 
-    -- TODO: setup this engine
     use {
         'L3MON4D3/LuaSnip',
         'rafamadriz/friendly-snippets',

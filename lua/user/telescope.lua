@@ -4,6 +4,8 @@ if not ok then
     return
 end
 
+local actions = require("telescope.actions")
+
 telescope.setup {
     defaults = {
         prompt_prefix = "",
@@ -22,6 +24,9 @@ telescope.setup {
                 -- map actions.which_key to <C-h> (default: <C-/>)
                 -- actions.which_key shows the mappings for your picker,
                 -- e.g. git_{create, delete, ...}_branch for the git_branches picker
+                ["<C-j>"] =actions.move_selection_previous,
+                ["<C-j>"] =actions.move_selection_next,
+                ["<C-j>"] =actions.send_selected_to_qflist + actions.open_qflist,
                 ["<C-h>"] = "which_key"
             }
         }
