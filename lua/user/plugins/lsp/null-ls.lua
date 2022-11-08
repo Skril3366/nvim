@@ -22,15 +22,15 @@ local formatting_sources = {
   formatting.stylua, -- lua
 
   formatting.clang_format, -- C/C++/Java/JavaScript/JSON/Objective-C/Protobuf/C#
-  formatting.codespell, -- common misspelling checker (for e.g. adn instead and)
+  -- formatting.codespell, -- common misspelling checker (for e.g. adn instead and)
   formatting.prettierd, -- JavaScript, TypeScript, Flow, JSX, JSON, CSS, SCSS, LESS, HTML, Vue, Angular, GraphQL, Markdown, YAML
 }
 
 local diagnostics = builtins.diagnostics
 local diagnostics_sources = {
   -- diagnostics.chktex,
-  diagnostics.codespell, -- common misspelling checker (for e.g. adn instead and)
-  diagnostics.cspell, -- spell checker for code
+  -- diagnostics.codespell, -- common misspelling checker (for e.g. adn instead and)
+  -- diagnostics.cspell, -- spell checker for code
   diagnostics.flake8, -- python
   diagnostics.markdownlint, -- markdown
   diagnostics.misspell, -- correct commonly misspelled words
