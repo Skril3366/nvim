@@ -7,3 +7,5 @@ vim.api.nvim_create_autocmd("BufWritePost", {
     end,
     group = vim.api.nvim_create_augroup("Latex Compile On Save", { clear = true }),
 })
+
+vim.cmd("let g:vimtex_view_method = 'zathura'")

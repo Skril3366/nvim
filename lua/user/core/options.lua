@@ -84,9 +84,6 @@ vim.api.nvim_create_autocmd("FileType", {
 })
 
 -- VimTex specific
-
 vim.cmd("syntax enable")
 vim.cmd("filetype plugin indent on")
-vim.cmd("let g:vimtex_view_method = 'zathura'")
--- vim.g.vimtex_view_method = "zathura"
 
