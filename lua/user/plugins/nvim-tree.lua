@@ -1,3 +1,4 @@
+  -- org_todo_keyword_faces
 local ok, nvim_tree = pcall(require, 'nvim-tree')
 if not ok then
     print("NvimTree failed to run")

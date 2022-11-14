@@ -19,6 +19,8 @@ require(plugins .. "nvim-tree")
 require(plugins .. "treesitter")
 require(plugins .. "telescope")
 require(plugins .. "toggleterm")
+require(plugins .. "orgmode")
+require(plugins .. "project")
 
 require(lsp .. "cmp")
 require(lsp .. "dap")

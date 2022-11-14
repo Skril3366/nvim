@@ -81,7 +81,7 @@ mason_null_ls.setup({
 		"stylua",
 		"textlint",
 		"vale",
-		"vulture",
+		-- "vulture",
 		"write-good",
 		"yamlfmt",
 		"yamllint",

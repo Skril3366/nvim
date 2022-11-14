@@ -18,6 +18,7 @@ configs.setup({
     "latex",
     "json",
     "markdown",
+    "org",
   },
   incremental_selection = {
     enable = true,
@@ -33,6 +34,7 @@ configs.setup({
   },
   highlight = {
     enable = true,
+		additional_vim_regex_highlighting = { "org" }, -- Required for spellcheck, some LaTex highlights and code block highlights that do not have ts grammar
   },
   textobjects = {
     select = {

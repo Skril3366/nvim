@@ -74,3 +74,9 @@ if not ok then
     print("Could not load telescope project extension")
     return
 end
+
+local ok, project = pcall(telescope.load_extension, 'orgmode')
+if not ok then
+    print("Could not load orgmode project extension")
+    return
+end

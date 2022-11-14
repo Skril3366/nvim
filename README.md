@@ -20,6 +20,7 @@ them.
   [clang](https://github.com/llvm-mirror/clang)
 
 MacOS:
+
 - [Brew](https://brew.sh/)
 
 ## Installation
@@ -28,9 +29,8 @@ MacOS:
 
 Simply run `install.sh` script
 
-
-
 Currently supported:
+
 - [x] macOS
 - [ ] Arch Linux
 - [ ] Ubuntu

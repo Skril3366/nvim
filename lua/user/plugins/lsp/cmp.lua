@@ -55,6 +55,7 @@ cmp.setup {
 
     sources = {
         { name = "luasnip" },
+        { name = "orgmode" },
         { name = 'nvim_lua' },
         { name = "plugins" },
         { name = "nvim_lsp_signature_help" },
