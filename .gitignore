@@ -12,3 +12,8 @@ spell/
 
 plugged
 plugin
+
+node_modules
+package-lock.json
+package.json
+.metals
