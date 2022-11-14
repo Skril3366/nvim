@@ -22,8 +22,8 @@ keymap("n", "gD", buf.declaration, opts)
 keymap("n", "gi", buf.implementation, opts)
 keymap("n", "K", buf.hover, opts)
 keymap("n", "gr", buf.rename, opts)
-keymap("n", "<leader>dn", diagnostic.goto_prev, opts)
-keymap("n", "<leader>dp", diagnostic.goto_next, opts)
+keymap("n", "<leader>dp", diagnostic.goto_prev, opts)
+keymap("n", "<leader>dn", diagnostic.goto_next, opts)
 keymap("n", "<leader>d", diagnostic.open_float, opts)
 
 ------------------------------- Telescope --------------------------------------
