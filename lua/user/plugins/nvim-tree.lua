@@ -7,6 +7,9 @@ end
 
 nvim_tree.setup({
     sort_by = "case_sensitive",
+    git = {
+      ignore  = false
+    },
     view = {
         adaptive_size = true,
         width = 10,
