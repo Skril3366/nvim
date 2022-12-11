@@ -9,8 +9,9 @@ project_nvim.setup({
 	manual_mode = false,
 	detection_methods = { "lsp", "pattern" },
 	patterns = {
-		"=src",
+		-- "=src",
 		".git",
+		"=tex",
 		"_darcs",
 		".hg",
 		".bzr",
@@ -26,6 +27,6 @@ project_nvim.setup({
 		enable = true,
 		update_root = true,
 	},
-	silent_chdir = false,
+	silent_chdir = true,
 	scope_chdir = "global",
 })
