@@ -5,10 +5,12 @@ if not ok then
   return
 end
 
+
 local builtins = null_ls.builtins
 
 local formatting = builtins.formatting
 local formatting_sources = {
+  formatting.scalafmt, -- scala
   formatting.beautysh, -- bash
   formatting.shfmt, -- bash
 
@@ -31,10 +33,10 @@ local diagnostics_sources = {
   -- diagnostics.chktex,
   -- diagnostics.codespell, -- common misspelling checker (for e.g. adn instead and)
   -- diagnostics.cspell, -- spell checker for code
-  diagnostics.flake8, -- python
+  -- diagnostics.flake8, -- python
   diagnostics.markdownlint, -- markdown
   diagnostics.misspell, -- correct commonly misspelled words
-  diagnostics.pyproject_flake8, -- python
+  -- diagnostics.pyproject_flake8, -- python
   diagnostics.shellcheck, -- bash
   diagnostics.vale, -- Text, Markdown, LaTeX
   diagnostics.vulture, -- python : find unused code
