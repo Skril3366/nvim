@@ -265,6 +265,14 @@ return packer.startup(function(use)
     end,
   })
 
+  use {
+  'lewis6991/gitsigns.nvim',
+  config = function()
+    require('gitsigns').setup()
+  end
+}
+
+
   -- Plugin for integrating with browser extension https://github.com/glacambre/firenvim
   use({
     "glacambre/firenvim",
