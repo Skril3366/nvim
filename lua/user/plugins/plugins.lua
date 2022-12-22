@@ -99,12 +99,7 @@ return packer.startup(function(use)
   })
 
   -- TreeSitter
-  use({
-    "nvim-treesitter/nvim-treesitter", -- User-friendly interface and basic functionality for TreeSitter
-    -- config = function()
-    -- 	require("user.treesitter")
-    -- end,
-  })
+  -- is installed by default for neovim 0.8 and higher
   use({ -- Different modules for TreeSitter
     "nvim-treesitter/nvim-treesitter-refactor",
     "nvim-treesitter/nvim-treesitter-context", -- Show current context as top line
