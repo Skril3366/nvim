@@ -8,11 +8,12 @@ local metals_config = require("metals").bare_config()
 metals_config.settings = {
   showImplicitArguments = true,
   superMethodLensesEnabled = true,
-  showInferredType = false,
-  showImplicitConversionsAndClasses = false,
+  showInferredType = true,
+  showImplicitConversionsAndClasses = true,
+  fallbackScalaVersion = "3.2.0"
 }
 
-metals_config.on_attach = function(client, bufnr)
+metals_config.on_attach = function(_, _)
   require("metals").setup_dap()
 end
 
