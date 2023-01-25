@@ -99,12 +99,12 @@ return packer.startup(function(use)
   })
 
   -- TreeSitter
-  use({
-    "nvim-treesitter/nvim-treesitter", -- User-friendly interface and basic functionality for TreeSitter
+  --use({
+    --"nvim-treesitter/nvim-treesitter", -- User-friendly interface and basic functionality for TreeSitter
     -- config = function()
     -- 	require("user.treesitter")
     -- end,
-  })
+  --})
   use({ -- Different modules for TreeSitter
     "nvim-treesitter/nvim-treesitter-refactor",
     "nvim-treesitter/nvim-treesitter-context", -- Show current context as top line
