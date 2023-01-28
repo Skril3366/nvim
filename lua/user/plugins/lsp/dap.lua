@@ -1,123 +1,128 @@
--------------------------------------------------------------------------------
-------------------- Debugging Adapter Protocol configuration  -----------------
--------------- see https://github.com/mfussenegger/nvim-dap -------------------
--------------------------------------------------------------------------------
+return {
+	{
+		"mfussenegger/nvim-dap",
+		lazy = true,
+		config = function()
+			local dap = require("dap")
+			local nnoremap = require("user.utils.keymap").nnoremap
 
-local ok, dap = pcall(require, "dap")
-if not ok then
-  print("DAP failed to run")
-  return
-end
+			nnoremap("<leader>dc", dap.continue, "DAP continue")
+			nnoremap("<leader>di", dap.step_into, "DAP step into")
+			nnoremap("<leader>dO", dap.step_out, "DAP step out")
+			nnoremap("<leader>do", dap.step_over, "DAP step over")
 
--------------------------------------------------------------------------------
------------------------ UI configuration and enhancements  --------------------
--------------- see https://github.com/rcarriga/nvim-dap-ui --------------------
--------------- and https://github.com/theHamsta/nvim-dap-virtual-text ---------
--------------------------------------------------------------------------------
+			-- Breakpoints
+			local conditional_breakpoint = function()
+				dap.toggle_breakpoint(vim.fn.input("Condition: "))
+			end
+			nnoremap("<leader>dB", conditional_breakpoint, "DAP set conditional breakpoint")
+			nnoremap("<leader>db", dap.toggle_breakpoint, "DAP toggle breakpoint")
 
--- Virtual text displayed on top of the code
-local ok, dap_virtual_text = pcall(require, "nvim-dap-virtual-text")
-if not ok then
-  print("Dap Virtual Text failed to run")
-else
-  dap_virtual_text.setup({})
-end
+			-- Other
+			nnoremap("<leader>dt", dap.terminate, "DAP terminate")
 
--- Pretty UI for DAP
-local ok, dapui = pcall(require, "dapui")
-if not ok then
-  print("DapUI failed to run")
-else
-  dapui.setup({})
-  -- Automatically open and close dapui when called
-  dap.listeners.after.event_initialized["dapui_config"] = function()
-    dapui.open({})
-  end
-  dap.listeners.before.event_terminated["dapui_config"] = function()
-    dapui.close({})
-  end
-  dap.listeners.before.event_exited["dapui_config"] = function()
-    dapui.close({})
-  end
-end
+			dap.adapters.python = {
+				type = "executable",
+				command = os.getenv("HOME") .. "/.virtualenvs/tools/bin/python",
+				args = { "-m", "debugpy.adapter" },
+			}
 
--------------------------------------------------------------------------------
------------------------ Language specific configurations  ---------------------
--------------------------------------------------------------------------------
+			dap.configurations.python = {
+				{
+					type = "python3",
+					request = "launch",
+					name = "Launch file",
+					program = "${file}",
+					pythonPath = function()
+						return "/usr/local/bin/python3"
+					end,
+				},
+			}
+			-- Scala
+			dap.configurations.scala = {
+				{
+					type = "scala",
+					request = "launch",
+					name = "Run",
+					metals = {
+						runType = "run",
+					},
+				},
+				{
+					type = "scala",
+					request = "launch",
+					name = "Test File",
+					metals = {
+						runType = "testFile",
+					},
+				},
+				{
+					type = "scala",
+					request = "launch",
+					name = "Test Target",
+					metals = {
+						runType = "testTarget",
+					},
+				},
+			}
 
-dap.adapters.python = {
-  type = "executable",
-  command = os.getenv("HOME") .. "/.virtualenvs/tools/bin/python",
-  args = { "-m", "debugpy.adapter" },
+			-- Rust, C++ and C
+			dap.adapters.lldb = {
+				type = "executable",
+				command = "/usr/local/opt/llvm/bin/lldb-vscode", -- adjust as needed, must be absolute path
+				name = "lldb",
+			}
+
+			dap.configurations.cpp = {
+				{
+					name = "Launch",
+					type = "lldb",
+					request = "launch",
+					program = function()
+						return vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/", "file")
+					end,
+					cwd = "${workspaceFolder}",
+					stopOnEntry = false,
+					args = {},
+				},
+			}
+
+			dap.configurations.c = dap.configurations.cpp
+			dap.configurations.rust = dap.configurations.cpp
+		end,
+	},
+	{
+		"leoluz/nvim-dap-go",
+		config = function()
+			require("dap-go").setup()
+		end,
+	},
+	{
+		"rcarriga/nvim-dap-ui",
+		lazy = true,
+		config = function()
+			local dapui = require("dapui")
+
+			local nnoremap = require("user.utils.keymap").nnoremap
+			nnoremap("<leader>du", dapui.toggle, "Toggle DAP UI")
+
+			dapui.setup({})
+			local listeners = require("dap").listeners
+			listeners.after.event_initialized["dapui_config"] = function()
+				dapui.open({})
+			end
+			listeners.before.event_terminated["dapui_config"] = function()
+				dapui.close({})
+			end
+			listeners.before.event_exited["dapui_config"] = function()
+				dapui.close({})
+			end
+		end,
+	},
+	{
+		"theHamsta/nvim-dap-virtual-text",
+		config = function()
+			require("nvim-dap-virtual-text").setup({})
+		end,
+	},
 }
-
-dap.configurations.python = {
-  {
-    type = "python3",
-    request = "launch",
-    name = "Launch file",
-    program = "${file}",
-    pythonPath = function()
-      return "/usr/local/bin/python3"
-    end,
-  },
-}
--- Scala
-dap.configurations.scala = {
-  {
-    type = "scala",
-    request = "launch",
-    name = "Run",
-    metals = {
-      runType = "run",
-    },
-  },
-  {
-    type = "scala",
-    request = "launch",
-    name = "Test File",
-    metals = {
-      runType = "testFile",
-    },
-  },
-  {
-    type = "scala",
-    request = "launch",
-    name = "Test Target",
-    metals = {
-      runType = "testTarget",
-    },
-  },
-}
-
--- Rust, C++ and C
-dap.adapters.lldb = {
-  type = "executable",
-  command = "/usr/local/opt/llvm/bin/lldb-vscode", -- adjust as needed, must be absolute path
-  name = "lldb",
-}
-
-dap.configurations.cpp = {
-  {
-    name = "Launch",
-    type = "lldb",
-    request = "launch",
-    program = function()
-      return vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/", "file")
-    end,
-    cwd = "${workspaceFolder}",
-    stopOnEntry = false,
-    args = {},
-  },
-}
-
-dap.configurations.c = dap.configurations.cpp
-dap.configurations.rust = dap.configurations.cpp
-
--- Go lang
-local ok, dap_go = pcall(require, "dap-go")
-if not ok then
-  print("DapGo failed to run")
-else
-  dap_go.setup()
-end

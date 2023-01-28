@@ -1,29 +1,17 @@
 local user = "user."
 
-local colorschemes = user .. "colorschemes."
-local core = user .. "core."
+local load = function(name)
+  local ok, mod = pcall(require, user .. name)
+  if not ok then
+    error("Failed to load module " .. name .. ": " .. mod)
+  end
+  return mod
+end
 
-local plugins = user .. "plugins."
-local lsp = plugins .. "lsp."
+load("core.options")
+load("core.lazygit")
+load("core.keybindings")
 
-require(plugins .. "plugins")
 
-require(core .. "options")
-require(core .. "keybindings")
-require(core .. "lazygit")
-
-require(colorschemes .. "tokyonight")
-
-require(plugins .. "lualine")
-require(plugins .. "luasnip")
-require(plugins .. "nvim-tree")
-require(plugins .. "treesitter")
-require(plugins .. "telescope")
-require(plugins .. "toggleterm")
-require(plugins .. "orgmode")
-require(plugins .. "project")
-
-require(lsp .. "cmp")
-require(lsp .. "dap")
-require(lsp .. "mason")
-require(lsp .. "null-ls")
+load("lazy") -- load auto-installer for lazy.nvim
+require("lazy").setup(user .. "plugins")

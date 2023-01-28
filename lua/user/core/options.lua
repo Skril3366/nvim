@@ -51,7 +51,7 @@ wo.wrap = false -- disable text wrapping
 o.errorbells = false -- disable error bells
 o.scrolloff = 8 -- show 8 lines below cursor while scrolling
 wo.signcolumn = "yes:2" -- automatically set column for signs
--- o.wildmenu = true -- ????
+o.wildmenu = true  -- completion while writing command (in : mode)
 o.textwidth = 80 -- automatically breaks the line if it's longer than 80 symbols
 
 -- update file when it's changed

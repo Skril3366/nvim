@@ -1,124 +1,133 @@
--------------------------------------------------------------------------------
---------- Setting up lsp, dap and linter server manager "Mason" ---------------
-------------- see https://github.com/williamboman/mason.nvim ------------------
--------------------------------------------------------------------------------
+local buf = vim.lsp.buf
+local diagnostic = vim.diagnostic
 
-local ok, mason = pcall(require, "mason")
-if not ok then
-	print("Mason failed to run")
-	return
-end
+local lsp_servers = (...):match("(.-)[^%.]+$") .. "servers."
 
-mason.setup()
+return {
+  {
+    "williamboman/mason.nvim",
+    lazy = false,
+    config = function()
+      local mason = require("mason")
+      mason.setup({})
 
-local ok, masonlsp = pcall(require, "mason-lspconfig")
-if not ok then
-	print("Mason Lsp config failed to run")
-	return
-end
+      -- Set virtual text support
+      vim.lsp.handlers["textDocument/publishDiagnostics"] =
+      vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, { virtual_text = true })
+    end,
+  },
+  {
+    "williamboman/mason-lspconfig.nvim",
+    dependencies = {
+      "neovim/nvim-lspconfig",
+    },
+    lazy = false,
+    -- TODO: rewrite this into config function
+    keys = {
+      { "<leader>f", buf.format },
+      { "<leader>a", buf.code_action },
+      { "gd", buf.definition },
+      { "gD", buf.declaration },
+      { "gi", buf.implementation },
+      { "K", buf.hover },
+      { "gr", buf.rename },
+      { "<leader>dp", diagnostic.goto_prev },
+      { "<leader>dn", diagnostic.goto_next },
+      { "<leader>d", diagnostic.open_float },
+    },
+    config = function()
+      local masonlsp = require("mason-lspconfig")
+      masonlsp.setup({
+        ensure_installed = {
+          "bashls",
+          "clangd",
+          "cssls",
+          "jdtls",
+          "jsonls",
+          "sumneko_lua",
+          "marksman",
+          "prosemd_lsp",
+          "remark_ls",
+          "texlab",
+          "yamlls",
+        },
+      })
+      local attach = function(_)
+        print("LSP has started")
+      end
 
-local ok, mason_dap = pcall(require, "mason-nvim-dap")
-if not ok then
-	print("Mason nvim dap failed to run")
-	return
-end
-
-mason_dap.setup({
-	ensure_installed = {
-		"bash-debug-adapter",
-		"cpptools",
-		"java-debug-adapter",
-		"java-test",
-	},
-})
-
-local lsp_servers = "user.plugins.lsp.lsp-servers."
-
--- TODO: add servers here
-masonlsp.setup({
-	ensure_installed = {
-		"bashls",
-		"clangd",
-		"cssls",
-		"jdtls",
-		"jsonls",
-		"sumneko_lua",
-		"marksman",
-		"prosemd_lsp",
-		"remark_ls",
-		"texlab",
-		"yamlls",
-	},
-})
-
-local ok, mason_null_ls = pcall(require, "mason-null-ls")
-if not ok then
-	print("Mason null-ls failed to run")
-	return
-end
-
-mason_null_ls.setup({
-	ensure_installed = {
-		"beautysh",
-		"black",
-		"blue",
-		"clang-format",
-		"cmakelang",
-		"codespell",
-		"cpplint",
-		"cspell",
-		-- "flake8",
-		"golangci-lint",
-		"isort",
-		"markdownlint",
-		"misspell",
-		"prettierd",
-		-- "pyproject-flake8",
-		"remark-cli",
-		"selene",
-		"shellcheck",
-		"shfmt",
-		"stylua",
-		"textlint",
-		"vale",
-		-- "vulture",
-		"write-good",
-		"yamlfmt",
-		"yamllint",
-	},
-})
-
--- General on_attach function for LSP servers
-local attach = function(client)
-	print("LSP has started")
-end
-
--- Settings for LSPs
-masonlsp.setup_handlers({
-	function(server_name) -- default handler
-		require("lspconfig")[server_name].setup({ on_attach = attach })
-	end,
-	-- Server specific handlers
-	["sumneko_lua"] = function()
-		require("lspconfig").sumneko_lua.setup(require(lsp_servers .. "lua"))
-	end,
-	["jdtls"] = function()
-		-- Empty function not to run it from Mason
-	end,
-	["bashls"] = function()
-		require("lspconfig").bashls.setup({
-			on_attach = attach,
-			filetypes = { "sh", "zsh", "zshrc" },
-		})
-	end,
-})
-
-require(lsp_servers .. "scala")
-
--------------------------------------------------------------------------------
------------------------------ Other LSP settings ------------------------------
--------------------------------------------------------------------------------
-
--- Set virtual text support
-vim.lsp.handlers["textDocument/publishDiagnostics"] =
-	vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, { virtual_text = true })
+      -- Settings for LSPs
+      masonlsp.setup_handlers({
+        function(server_name) -- default handler
+          require("lspconfig")[server_name].setup({ on_attach = attach })
+        end,
+        -- Server specific handlers
+        ["sumneko_lua"] = function(_)
+          require("lspconfig").sumneko_lua.setup(require(lsp_servers .. "lua"))
+        end,
+        ["jdtls"] = function(_)
+          -- Empty function not to run it from Mason
+        end,
+        ["bashls"] = function(_)
+          require("lspconfig").bashls.setup({
+            on_attach = attach,
+            filetypes = { "sh", "zsh", "zshrc" },
+          })
+        end,
+      })
+    end,
+  },
+  {
+    "jay-babu/mason-nvim-dap.nvim",
+    config = function()
+      local masondap = require("mason-nvim-dap")
+      masondap.setup({
+        ensure_installed = {
+          "bash-debug-adapter",
+          "cpptools",
+          "java-debug-adapter",
+          "java-test",
+        },
+      })
+    end,
+  },
+  {
+    "jay-babu/mason-null-ls.nvim",
+    dependencies = {
+      "jose-elias-alvarez/null-ls.nvim"
+    },
+    config = function()
+      local masonnull = require("mason-null-ls")
+      masonnull.setup({
+        ensure_installed = {
+          "beautysh",
+          "black",
+          "blue",
+          "clang-format",
+          "cmakelang",
+          "codespell",
+          "cpplint",
+          "cspell",
+          -- "flake8",
+          "golangci-lint",
+          "isort",
+          "markdownlint",
+          "misspell",
+          "prettierd",
+          -- "pyproject-flake8",
+          "remark-cli",
+          "selene",
+          "shellcheck",
+          "shfmt",
+          "stylua",
+          "textlint",
+          "vale",
+          -- "vulture",
+          "write-good",
+          "yamlfmt",
+          "yamllint",
+        },
+      })
+    end,
+  },
+}
