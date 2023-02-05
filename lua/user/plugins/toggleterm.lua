@@ -47,14 +47,13 @@ return {
     })
 
     -- TODO: setup toggle term to use lazygit and open 2 windows on the left
-    local tnoremap = require("user.utils.keymap").tnoremap
     function _G.set_terminal_keymaps()
       local opts = { buffer = 0 }
-      tnoremap("<C-\\>", [[<C-\><C-n>]], opts)
-      tnoremap("<C-w>h", [[<Cmd>wincmd h<CR>]], opts)
-      tnoremap("<C-w>j", [[<Cmd>wincmd j<CR>]], opts)
-      tnoremap("<C-w>k", [[<Cmd>wincmd k<CR>]], opts)
-      tnoremap("<C-w>l", [[<Cmd>wincmd l<CR>]], opts)
+      vim.keymap.set("t", "<C-\\>", [[<C-\><C-n>]], opts)
+      vim.keymap.set("t", "<C-w>h", [[<Cmd>wincmd h<CR>]], opts)
+      vim.keymap.set("t", "<C-w>j", [[<Cmd>wincmd j<CR>]], opts)
+      vim.keymap.set("t", "<C-w>k", [[<Cmd>wincmd k<CR>]], opts)
+      vim.keymap.set("t", "<C-w>l", [[<Cmd>wincmd l<CR>]], opts)
     end
 
     vim.cmd("autocmd! TermOpen term://* lua set_terminal_keymaps()")
