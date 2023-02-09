@@ -10,6 +10,7 @@ end
 
 load("core.options")
 load("core.lazygit")
+load("core.hexedit")
 load("core.keybindings")
 
 
