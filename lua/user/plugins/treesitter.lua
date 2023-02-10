@@ -60,6 +60,7 @@ return {
           "json",
           "markdown",
           "org",
+          "hocon",
         },
         incremental_selection = {
           enable = true,
