@@ -1,4 +1,6 @@
 return {
+    "rcarriga/nvim-notify",
+    "stevearc/dressing.nvim",
     {
         "j-hui/fidget.nvim",
         config = function()
@@ -64,7 +66,7 @@ return {
     {
         "nvim-tree/nvim-tree.lua", -- file explorer
         keys = {
-            { "<leader>t",  "<cmd>NvimTreeToggle<cr>" },
+            { "<leader>t", "<cmd>NvimTreeToggle<cr>" },
         },
         config = function()
           vim.g.loaded_netrw = 1
