@@ -64,7 +64,7 @@ return {
     {
         "nvim-tree/nvim-tree.lua", -- file explorer
         keys = {
-            { "<leader>dc", require("dap").continue, desc = "DAP continue" },
+            { "<leader>t",  "<cmd>NvimTreeToggle<cr>" },
         },
         config = function()
           vim.g.loaded_netrw = 1

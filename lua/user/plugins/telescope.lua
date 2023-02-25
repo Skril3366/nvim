@@ -98,6 +98,7 @@ return {
 		keys = {
       { "<leader>p", "<cmd>Telescope projects<cr>", desc = "Show all the projects" },
 		},
+    lazy = false,
 		config = function()
 			require("telescope").load_extension("projects")
 			require("project_nvim").setup({

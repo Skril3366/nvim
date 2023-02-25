@@ -100,7 +100,7 @@ return {
     {
         "rcarriga/nvim-dap-ui",
         keys = {
-            { "<leader>dc", "<cmd>NvimTreeToggle<cr>" },
+            { "<leader>dc", "<cmd>DapContinue<cr>", desc = "DAP continue" },
         },
         lazy = true,
         config = function()
