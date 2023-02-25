@@ -44,7 +44,7 @@ return {
           "cssls",
           "jdtls",
           "jsonls",
-          "sumneko_lua",
+          "lua_ls",
           "marksman",
           "prosemd_lsp",
           "remark_ls",
