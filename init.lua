@@ -15,4 +15,3 @@ load("core.keybindings")
 
 
 load("lazy") -- load auto-installer for lazy.nvim
-require("lazy").setup(user .. "plugins")

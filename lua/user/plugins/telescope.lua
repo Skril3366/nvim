@@ -31,7 +31,7 @@ return {
 
 			-- Help
 			nnoremap("<leader>H", builtin.help_tags, "Search nvim documentation")
-			nnoremap("<leader>K", builtin.keymaps, "Seach all current keymaps")
+			nnoremap("<leader>K", builtin.keymaps, "Search all current keymaps")
 
 			-- Other
 			nnoremap("<leader>D", builtin.diagnostics, "Show all the diagnostics mesages in the project")
@@ -86,12 +86,13 @@ return {
 		end,
 	},
 	-- TODO: uncomment
-	-- {
-	--   "nvim-telescope/telescope-fzf-native.nvim",
-	--   config = function()
-	--     require('telescope').load_extension('fzf')
-	--   end,
-	-- }, -- Sorter for telescope to improve performance
+	{
+	  "nvim-telescope/telescope-fzf-native.nvim",
+    build = 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build',
+	  config = function()
+	    require('telescope').load_extension('fzf')
+	  end,
+	}, -- Sorter for telescope to improve performance
 	{
 		"ahmedkhalf/project.nvim",
 		keys = {
