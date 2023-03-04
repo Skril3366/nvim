@@ -15,4 +15,8 @@ M.nnoremap = function(binding, action, desc)
   M.keymap("n", binding, action, desc)
 end
 
+M.vnoremap = function(binding, action, desc)
+  M.keymap("v", binding, action, desc)
+end
+
 return M
