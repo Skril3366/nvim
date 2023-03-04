@@ -22,6 +22,11 @@ return {
       formatting.clang_format, -- C/C++/Java/JavaScript/JSON/Objective-C/Protobuf/C#
       -- formatting.codespell, -- common misspelling checker (for e.g. adn instead and)
       formatting.prettierd, -- JavaScript, TypeScript, Flow, JSX, JSON, CSS, SCSS, LESS, HTML, Vue, Angular, GraphQL, Markdown, YAML
+
+      -- formatting.sqlfluff.with({
+      --   extra_args = { "--dialect", "postgres" }, -- change to your dialect
+      -- }),
+      formatting.sql_formatter
     }
 
     local diagnostics = builtins.diagnostics
@@ -44,6 +49,7 @@ return {
       -- diagnostics.pydocstyle,
       -- diagnostics.pylint,
       -- diagnostics.todo_comments,
+      diagnostics.sql_formatter
     }
 
     local code_actions = builtins.code_actions
