@@ -1,6 +1,6 @@
 return {
   enabled_plugins = {
-    copilot = false,
+    copilot = true,
   },
   colorscheme = {
     name = "tokyonight",
