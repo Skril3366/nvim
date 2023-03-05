@@ -6,18 +6,18 @@ return {
 
     local formatting = builtins.formatting
     local formatting_sources = {
-      formatting.scalafmt, -- scala
-      formatting.beautysh, -- bash
-      formatting.shfmt, -- bash
+      formatting.scalafmt,  -- scala
+      formatting.beautysh,  -- bash
+      formatting.shfmt,     -- bash
 
-      formatting.black, -- python
-      formatting.blue, -- python
-      formatting.isort, -- python sort imports
+      formatting.black,     -- python
+      formatting.blue,      -- python
+      formatting.isort,     -- python sort imports
 
       formatting.markdownlint, -- markdown
-      formatting.remark, -- markdown
+      formatting.remark,    -- markdown
 
-      formatting.stylua, -- lua
+      formatting.stylua,    -- lua
 
       formatting.clang_format, -- C/C++/Java/JavaScript/JSON/Objective-C/Protobuf/C#
       -- formatting.codespell, -- common misspelling checker (for e.g. adn instead and)
@@ -26,7 +26,11 @@ return {
       -- formatting.sqlfluff.with({
       --   extra_args = { "--dialect", "postgres" }, -- change to your dialect
       -- }),
-      formatting.sql_formatter
+      formatting.google_java_format,
+      formatting.sql_formatter,
+      formatting.sqlfluff.with({
+        extra_args = { "--dialect", "postgres" }, -- change to your dialect
+      }),
     }
 
     local diagnostics = builtins.diagnostics
@@ -36,11 +40,11 @@ return {
       -- diagnostics.cspell, -- spell checker for code
       -- diagnostics.flake8, -- python
       diagnostics.markdownlint, -- markdown
-      diagnostics.misspell, -- correct commonly misspelled words
+      diagnostics.misspell,  -- correct commonly misspelled words
       -- diagnostics.pyproject_flake8, -- python
       diagnostics.shellcheck, -- bash
-      diagnostics.vale, -- Text, Markdown, LaTeX
-      diagnostics.vulture, -- python : find unused code
+      diagnostics.vale,      -- Text, Markdown, LaTeX
+      diagnostics.vulture,   -- python : find unused code
       -- diagnostics.markdownlint_cli2,
       -- diagnostics.luacheck,
       -- diagnostics.mdl,
@@ -49,12 +53,14 @@ return {
       -- diagnostics.pydocstyle,
       -- diagnostics.pylint,
       -- diagnostics.todo_comments,
-      diagnostics.sql_formatter
+      diagnostics.sqlfluff.with({
+        extra_args = { "--dialect", "postgres" }, -- change to your dialect
+      }),
     }
 
     local code_actions = builtins.code_actions
     local code_actions_sources = {
-      code_actions.cspell, -- spell checker for code
+      code_actions.cspell,   -- spell checker for code
       code_actions.refactoring, -- automated refactoring
       code_actions.shellcheck, -- static analyzer for shell scripts
     }
