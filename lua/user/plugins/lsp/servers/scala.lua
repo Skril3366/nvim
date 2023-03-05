@@ -33,7 +33,7 @@ return {
           pattern = {
               "scala",
               "sbt",
-              -- "java"
+              "java"
           },
           callback = function()
             require("metals").initialize_or_attach(metals_config)
