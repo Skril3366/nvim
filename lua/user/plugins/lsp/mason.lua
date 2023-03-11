@@ -24,7 +24,7 @@ return {
     lazy = false,
     -- TODO: rewrite this into config function
     keys = {
-      { "<leader>f",  buf.format },
+      { "<leader>f",  function() buf.format({async = true}) end },
       { "<leader>a",  buf.code_action },
       { "gd",         buf.definition },
       { "gD",         buf.declaration },
