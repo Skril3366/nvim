@@ -44,7 +44,7 @@ return {
       -- diagnostics.pyproject_flake8, -- python
       diagnostics.shellcheck, -- bash
       diagnostics.vale,      -- Text, Markdown, LaTeX
-      diagnostics.vulture,   -- python : find unused code
+      -- diagnostics.vulture,   -- python : find unused code
       -- diagnostics.markdownlint_cli2,
       -- diagnostics.luacheck,
       -- diagnostics.mdl,
