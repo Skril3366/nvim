@@ -1,5 +1,12 @@
 return {
-  "rcarriga/nvim-notify",
+  {
+    "rcarriga/nvim-notify",
+    config = function()
+      require("notify").setup({
+        background_colour = "#000",
+      })
+    end,
+  },
   "stevearc/dressing.nvim",
   {
     "folke/trouble.nvim",
@@ -158,6 +165,7 @@ return {
         respect_buf_cwd = true,
         git = {
           ignore = false,
+          timeout = 1000,
         },
         view = {
           adaptive_size = true,
@@ -167,7 +175,15 @@ return {
           group_empty = true,
         },
         filters = {
-          dotfiles = true,
+          dotfiles = false,
+        },
+        respect_buf_cwd = true,
+        sync_root_with_cwd = true,
+        update_cwd = true,
+        update_focused_file = {
+          enable = true,
+          update_root = true,
+          ignore_list = { "toggleterm" },
         },
       })
     end,

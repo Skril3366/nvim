@@ -57,6 +57,7 @@ return {
           "remark_ls",
           "texlab",
           "yamlls",
+          "protolint",
         },
       })
       local attach = function(_)

@@ -42,6 +42,7 @@ return {
     lazy = false,
     config = function()
       vim.opt.runtimepath:append("$HOME/.local/share/treesitter") -- fixes issue with reinstalling parsers every time nvim is opened, see https://github.com/nvim-treesitter/nvim-treesitter/issues/3605
+      vim.api.nvim_create_autocmd({ "BufEnter" }, { pattern = { "*" }, command = "normal zx" }) -- fixes folding
 
       require("nvim-treesitter.configs").setup({
         parser_install_dir = "$HOME/.local/share/treesitter",
@@ -81,10 +82,8 @@ return {
         textobjects = {
           select = {
             enable = true,
-
             -- Automatically jump forward to textobj, similar to targets.vim
             lookahead = true,
-
             keymaps = {
               ["af"] = "@function.outer",
               ["if"] = "@function.inner",
@@ -121,11 +120,12 @@ return {
     "nvim-treesitter/nvim-treesitter-context",
     config = function()
       require("treesitter-context").setup({
-        enable = true, -- Enable this plugin (Can be enabled/disabled later via commands)
-        max_lines = 0, -- How many lines the window should span. Values <= 0 mean no limit.
+        enable = true,     -- Enable this plugin (Can be enabled/disabled later via commands)
+        max_lines = 0,     -- How many lines the window should span. Values <= 0 mean no limit.
         trim_scope = "outer", -- Which context lines to discard if `max_lines` is exceeded. Choices: 'inner', 'outer'
         min_window_height = 0, -- Minimum editor window height to enable context. Values <= 0 mean no limit.
-        patterns = { -- Match patterns for TS nodes. These get wrapped to match at word boundaries.
+        patterns = {
+                           -- Match patterns for TS nodes. These get wrapped to match at word boundaries.
           -- For all filetypes
           -- Note that setting an entry here replaces all other patterns for this entry.
           -- By setting the 'default' entry below, you can control which nodes you want to
@@ -187,7 +187,6 @@ return {
           -- exactly match "impl_item" only)
           -- rust = true,
         },
-
         -- [!] The options below are exposed but shouldn't require your attention,
         --     you can safely ignore them.
 
@@ -200,10 +199,14 @@ return {
       })
     end,
   }, -- Show current context as top line
-  { "nvim-treesitter/nvim-treesitter-refactor", config = function() end },
-  { "nvim-treesitter/nvim-treesitter-textobjects", config = function() end },
-  { "nvim-treesitter/playground", config = function() end }, -- TS information viewer
-  { "p00f/nvim-ts-rainbow", config = function() end }, -- Rainbow parentheses
+  { "nvim-treesitter/nvim-treesitter-refactor",    config = function()
+  end },
+  { "nvim-treesitter/nvim-treesitter-textobjects", config = function()
+  end },
+  { "nvim-treesitter/playground",                  config = function()
+  end },                                                    -- TS information viewer
+  { "p00f/nvim-ts-rainbow",                        config = function()
+  end },                                                    -- Rainbow parentheses
   {
     "m-demare/hlargs.nvim",
     config = function()

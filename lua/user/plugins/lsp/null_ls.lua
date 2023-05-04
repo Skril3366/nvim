@@ -22,6 +22,7 @@ return {
       formatting.clang_format, -- C/C++/Java/JavaScript/JSON/Objective-C/Protobuf/C#
       -- formatting.codespell, -- common misspelling checker (for e.g. adn instead and)
       formatting.prettierd, -- JavaScript, TypeScript, Flow, JSX, JSON, CSS, SCSS, LESS, HTML, Vue, Angular, GraphQL, Markdown, YAML
+      formatting.xmlformat, -- JavaScript, TypeScript, Flow, JSX, JSON, CSS, SCSS, LESS, HTML, Vue, Angular, GraphQL, Markdown, YAML
 
       -- formatting.sqlfluff.with({
       --   extra_args = { "--dialect", "postgres" }, -- change to your dialect
