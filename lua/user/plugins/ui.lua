@@ -163,6 +163,7 @@ return {
         },
         sort_by = "case_sensitive",
         respect_buf_cwd = true,
+        sync_root_with_cwd = true,
         git = {
           ignore = false,
           timeout = 1000,
