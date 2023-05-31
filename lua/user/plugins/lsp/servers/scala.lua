@@ -4,8 +4,7 @@ return {
     keys = {
         { "<leader>x", "<cmd>Telescope metals commands<cr>", desc = "Show all metals commands" },
     },
-    init = function()
-    end,
+    init = function() end,
     config = function()
       local metals_config = require("metals").bare_config()
       metals_config.settings = {

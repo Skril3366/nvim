@@ -26,7 +26,7 @@ return {
 
       -- LSP
       nnoremap("<leader>w", builtin.lsp_document_symbols, "Search lsp symbols in the current file")
-      nnoremap("<leader>W", builtin.lsp_workspace_symbols, "Search lsp symbols in the project")
+      nnoremap("<leader>W", builtin.lsp_dynamic_workspace_symbols, "Search lsp symbols in the project")
       nnoremap("gR", builtin.lsp_references, "Show all references of the symbol under the cursor")
 
       -- Help
@@ -37,6 +37,7 @@ return {
       nnoremap("<leader>D", builtin.diagnostics, "Show all the diagnostics mesages in the project")
       nnoremap("<leader>b", builtin.buffers, "Show all opened buffers")
       nnoremap("<leader>q", builtin.quickfix, "Show current quickfix list")
+      nnoremap("<leader>r", builtin.resume, "Show last search")
 
       telescope.setup({
         defaults = {
@@ -53,8 +54,8 @@ return {
           },
           mappings = {
             n = {
-              ["<c-d>"] = require("telescope.actions").delete_buffer,
-            }, -- n
+              ["<C-d>"] = require("telescope.actions").delete_buffer,
+            },
             i = {
               ["<C-d>"] = require("telescope.actions").delete_buffer,
               ["<C-j>"] = actions.move_selection_previous,
