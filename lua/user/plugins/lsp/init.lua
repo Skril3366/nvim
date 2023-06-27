@@ -9,9 +9,10 @@ end
 
 return {
   -- get current module path
-  load_module("dap"),
+  -- load_module("dap"),
   load_module("mason"),
   load_module("null_ls"),
-  load_server("scala")
+  load_server("scala"),
+  load_server("rust"),
   -- load("lsp"),
 }

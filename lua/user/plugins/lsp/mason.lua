@@ -2,15 +2,14 @@ local buf = vim.lsp.buf
 local diagnostic = vim.diagnostic
 
 local lsp_servers = (...):match("(.-)[^%.]+$") .. "servers."
+local conf = require("user.config").lsp
 
 return {
   {
     "williamboman/mason.nvim",
     lazy = false,
     config = function()
-      local mason = require("mason")
-      mason.setup({})
-
+      require("mason").setup({})
       -- Set virtual text support
       vim.lsp.handlers["textDocument/publishDiagnostics"] =
           vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, { virtual_text = true })
@@ -24,7 +23,12 @@ return {
     lazy = false,
     -- TODO: rewrite this into config function
     keys = {
-      { "<leader>f",  function() buf.format({async = true}) end },
+      {
+        "<leader>f",
+        function()
+          buf.format({ async = true })
+        end,
+      },
       { "<leader>a",  buf.code_action },
       { "gd",         buf.definition },
       { "gD",         buf.declaration },
@@ -38,28 +42,14 @@ return {
     config = function()
       local masonlsp = require("mason-lspconfig")
 
+      -- Fixes an issue that LSPs are sometimes not started when opening a file
       vim.api.nvim_create_autocmd({ "BufEnter" }, {
         callback = function()
           vim.cmd("LspStart")
         end,
       })
 
-      masonlsp.setup({
-        ensure_installed = {
-          "bashls",
-          "clangd",
-          "cssls",
-          "jdtls",
-          "jsonls",
-          "lua_ls",
-          "marksman",
-          "prosemd_lsp",
-          "remark_ls",
-          "texlab",
-          "yamlls",
-          "protolint",
-        },
-      })
+      masonlsp.setup({ ensure_installed = conf.ensure_installed.lsp })
       local attach = function(_)
         print("LSP has started")
       end
@@ -90,12 +80,7 @@ return {
     config = function()
       local masondap = require("mason-nvim-dap")
       masondap.setup({
-        ensure_installed = {
-          "bash-debug-adapter",
-          "cpptools",
-          "java-debug-adapter",
-          "java-test",
-        },
+        ensure_installed = conf.ensure_installed.dap,
       })
     end,
   },
@@ -107,37 +92,7 @@ return {
     config = function()
       local masonnull = require("mason-null-ls")
       masonnull.setup({
-        ensure_installed = {
-          "beautysh",
-          "black",
-          "blue",
-          "clang-format",
-          "cmakelang",
-          "codespell",
-          "cpplint",
-          "cspell",
-          -- "flake8",
-          "golangci-lint",
-          "isort",
-          "markdownlint",
-          "misspell",
-          "prettierd",
-          -- "pyproject-flake8",
-          "remark-cli",
-          "selene",
-          "shellcheck",
-          "shfmt",
-          "stylua",
-          "textlint",
-          "vale",
-          -- "vulture",
-          "write-good",
-          "yamlfmt",
-          "yamllint",
-          "google_java_format",
-          "sql_formatter",
-          "sqlfluff",
-        },
+        ensure_installed = conf.ensure_installed.null_ls,
       })
     end,
   },

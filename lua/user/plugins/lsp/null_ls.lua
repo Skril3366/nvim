@@ -14,7 +14,7 @@ return {
       formatting.blue,      -- python
       formatting.isort,     -- python sort imports
 
-      formatting.markdownlint, -- markdown
+      -- formatting.markdownlint, -- markdown
       formatting.remark,    -- markdown
 
       formatting.stylua,    -- lua
@@ -40,7 +40,7 @@ return {
       -- diagnostics.codespell, -- common misspelling checker (for e.g. adn instead and)
       -- diagnostics.cspell, -- spell checker for code
       -- diagnostics.flake8, -- python
-      diagnostics.markdownlint, -- markdown
+      -- diagnostics.markdownlint, -- markdown
       diagnostics.misspell,  -- correct commonly misspelled words
       -- diagnostics.pyproject_flake8, -- python
       diagnostics.shellcheck, -- bash
