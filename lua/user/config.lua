@@ -24,7 +24,7 @@ return {
         "marksman",
         "texlab",
         "yamlls",
-        "protolint",
+        "rust_analyzer",
       },
       dap = {
         "bash-debug-adapter",
@@ -33,6 +33,8 @@ return {
         "java-test",
       },
       null_ls = {
+        "protolint",
+        "rustfmt",
         "beautysh",
         "black",
         "blue",
