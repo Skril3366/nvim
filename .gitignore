@@ -5,4 +5,4 @@ plugin
 spell/
 undodir/
 lua/.luarc.json
-config.lua
+lua/user/config.lua
