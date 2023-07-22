@@ -69,12 +69,10 @@ return {
     lazy = false,
     config = function()
       local nnoremap = require("user.utils.keymap").nnoremap
-      nnoremap("<C-w>h", [[<Cmd>TmuxNavigateLeft<CR>]], opts)
-      nnoremap("<C-w>l", [[<Cmd>TmuxNavigateRight<CR>]], opts)
-      nnoremap("<C-w>j", [[<Cmd>TmuxNavigateDown<CR>]], opts)
-      nnoremap("<C-w>k", [[<Cmd>TmuxNavigateUp<CR>]], opts)
+      nnoremap("<C-w>h", [[<Cmd>TmuxNavigateLeft<CR>]])
+      nnoremap("<C-w>l", [[<Cmd>TmuxNavigateRight<CR>]])
+      nnoremap("<C-w>j", [[<Cmd>TmuxNavigateDown<CR>]])
+      nnoremap("<C-w>k", [[<Cmd>TmuxNavigateUp<CR>]])
     end,
   },
 }
-
-
