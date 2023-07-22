@@ -51,16 +51,16 @@ wo.wrap = false -- disable text wrapping
 o.errorbells = false -- disable error bells
 o.scrolloff = 8 -- show 8 lines below cursor while scrolling
 wo.signcolumn = "yes:2" -- automatically set column for signs
-o.wildmenu = true  -- completion while writing command (in : mode)
+o.wildmenu = true -- completion while writing command (in : mode)
 o.textwidth = 80 -- automatically breaks the line if it's longer than 80 symbols
 
 -- update file when it's changed
 o.autoread = true
 vim.api.nvim_create_autocmd("FocusGained", {
-  callback = function()
-    vim.api.nvim_command("checktime")
-  end,
-  group = vim.api.nvim_create_augroup("Autoreload", { clear = true }),
+	callback = function()
+		vim.api.nvim_command("checktime")
+	end,
+	group = vim.api.nvim_create_augroup("Autoreload", { clear = true }),
 })
 -- Other
 -- o.autochdir = true -- automatically change working directory
@@ -77,13 +77,12 @@ vim.cmd("let g:loaded_perl_provider = 0")
 
 -- Set spell for all files
 vim.api.nvim_create_autocmd("FileType", {
-  callback = function()
-    vim.cmd("setlocal spell")
-  end,
-  group = vim.api.nvim_create_augroup("Set spell", { clear = true }),
+	callback = function()
+		vim.cmd("setlocal spell")
+	end,
+	group = vim.api.nvim_create_augroup("Set spell", { clear = true }),
 })
 
 -- VimTex specific
 vim.cmd("syntax enable")
 vim.cmd("filetype plugin indent on")
-

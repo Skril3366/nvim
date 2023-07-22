@@ -7,8 +7,7 @@ if should_set_up_scala then
     keys = {
       { "<leader>x", "<cmd>Telescope metals commands<cr>", desc = "Show all metals commands" },
     },
-    init = function()
-    end,
+    init = function() end,
     config = function()
       local metals = require("metals")
       local metals_config = metals.bare_config()

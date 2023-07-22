@@ -74,7 +74,7 @@ return {
           { name = "dictionary" },
           { name = "path" },
           { name = "calc" },
-          { name = "buffer", keyword_length = 5 },
+          { name = "buffer",                 keyword_length = 5 },
         },
         formatting = {
           format = lspkind.cmp_format({
