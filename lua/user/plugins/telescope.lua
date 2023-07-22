@@ -31,16 +31,13 @@ return {
       end, "Search files in the current working directory")
       nnoremap("<leader>gf", builtin.git_files, "Search files in the current git repository")
       -- Git
-      nnoremap("<leader>gc", builtin.git_bcommits, "Search git commits")
+      nnoremap("<leader>gc", builtin.git_bcommits, "Search git commits for current buffer")
+      nnoremap("<leader>gC", builtin.git_bcommits, "Search all git commits")
       nnoremap("<leader>gb", builtin.git_branches, "Search git branches")
 
       -- Inside files
       nnoremap("<leader>s", builtin.current_buffer_fuzzy_find, "Fuzzy find in the current buffer")
       nnoremap("<leader>gg", builtin.live_grep, "Grep in all the files in current working directory")
-
-      -- Git
-      nnoremap("<leader>gc", builtin.git_commits, "Search git commits")
-      nnoremap("<leader>gb", builtin.git_branches, "Search git branches")
 
       -- LSP
       nnoremap("<leader>w", builtin.lsp_document_symbols, "Search lsp symbols in the current file")
