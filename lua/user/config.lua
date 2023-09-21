@@ -34,7 +34,6 @@ return {
       },
       null_ls = {
         "protolint",
-        "rustfmt",
         "beautysh",
         "black",
         "blue",
