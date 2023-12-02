@@ -42,7 +42,7 @@ return {
     lazy = false,
     config = function()
       vim.opt.runtimepath:append("$HOME/.local/share/treesitter") -- fixes issue with reinstalling parsers every time nvim is opened, see https://github.com/nvim-treesitter/nvim-treesitter/issues/3605
-      vim.api.nvim_create_autocmd({ "BufEnter" }, { pattern = { "*" }, command = "normal zx" }) -- fixes folding
+      -- vim.api.nvim_create_autocmd({ "BufEnter" }, { pattern = { "*" }, command = "normal zx" }) -- fixes folding
 
       require("nvim-treesitter.configs").setup({
         parser_install_dir = "$HOME/.local/share/treesitter",

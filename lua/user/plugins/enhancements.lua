@@ -1,10 +1,17 @@
 local user_config = require("user.config")
 return {
   {
+    'numToStr/Comment.nvim',
+    opts = {
+      -- add any options here
+    },
+    lazy = false,
+  },
+  {
     "echasnovski/mini.nvim",
     config = function()
-      require("mini.comment").setup({}) -- add comments by shortcut
-      require("mini.ai").setup({     -- extend around/inside text objects
+      -- require("mini.comment").setup({}) -- add comments by shortcut
+      require("mini.ai").setup({ -- extend around/inside text objects
         custom_textobjects = nil,
         mappings = {
           -- Main textobject prefixes
@@ -23,7 +30,7 @@ return {
         n_lines = 100,
         search_method = "cover_or_next",
       })
-      require("mini.pairs").setup({})   -- auto pair brackets and quotes
+      require("mini.pairs").setup({})      -- auto pair brackets and quotes
       require("mini.trailspace").setup({}) -- highlight and remove trailing spaces
     end,
   },
