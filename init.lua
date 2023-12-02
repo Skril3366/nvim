@@ -10,7 +10,6 @@ end
 
 load("core.options")
 load("core.lazygit")
-load("core.hexedit")
 load("core.keybindings")
 
 load("lazy") -- load auto-installer for lazy.nvim
