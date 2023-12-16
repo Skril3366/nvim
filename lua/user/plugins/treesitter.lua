@@ -17,10 +17,6 @@ return {
           "#f7768e",
           "#ff9e64",
         },
-        -- bright = { "#f5c0c0", "#f5d3c0", "#f5eac0", "#dff5c0", "#c0f5c8", "#c0f5f1", "#c0dbf5", "#ccc0f5", "#f2c0f5",
-        --     "#98fc03" },
-        -- dark = { "#c99d9d", "#c9a99d", "#c9b79d", "#c9c39d", "#bdc99d", "#a9c99d", "#9dc9b6", "#9dc2c9", "#9da9c9",
-        --     "#b29dc9" }
       }
       local configs = require("nvim-treesitter.configs")
 
@@ -31,7 +27,11 @@ return {
           queries = markid.queries,
           is_supported = function(lang)
             local queries = configs.get_module("markid").queries
-            return pcall(vim.treesitter.query.parse, lang, queries[lang] or queries["default"])
+            return pcall(
+              vim.treesitter.query.parse,
+              lang,
+              queries[lang] or queries["default"]
+            )
           end,
         },
       })
@@ -62,6 +62,9 @@ return {
           "markdown",
           "org",
           "hocon",
+          -- git
+          "gitcommit",
+          "gitignore",
         },
         incremental_selection = {
           enable = true,
@@ -120,12 +123,12 @@ return {
     "nvim-treesitter/nvim-treesitter-context",
     config = function()
       require("treesitter-context").setup({
-        enable = true,     -- Enable this plugin (Can be enabled/disabled later via commands)
-        max_lines = 5,     -- How many lines the window should span. Values <= 0 mean no limit.
+        enable = true, -- Enable this plugin (Can be enabled/disabled later via commands)
+        max_lines = 5, -- How many lines the window should span. Values <= 0 mean no limit.
         trim_scope = "outer", -- Which context lines to discard if `max_lines` is exceeded. Choices: 'inner', 'outer'
         min_window_height = 0, -- Minimum editor window height to enable context. Values <= 0 mean no limit.
         patterns = {
-                           -- Match patterns for TS nodes. These get wrapped to match at word boundaries.
+          -- Match patterns for TS nodes. These get wrapped to match at word boundaries.
           -- For all filetypes
           -- Note that setting an entry here replaces all other patterns for this entry.
           -- By setting the 'default' entry below, you can control which nodes you want to
@@ -199,14 +202,22 @@ return {
       })
     end,
   }, -- Show current context as top line
-  { "nvim-treesitter/nvim-treesitter-refactor",    config = function()
-  end },
-  { "nvim-treesitter/nvim-treesitter-textobjects", config = function()
-  end },
-  { "nvim-treesitter/playground",                  config = function()
-  end },                                                    -- TS information viewer
-  { "p00f/nvim-ts-rainbow",                        config = function()
-  end },                                                    -- Rainbow parentheses
+  {
+    "nvim-treesitter/nvim-treesitter-refactor",
+    config = function() end,
+  },
+  {
+    "nvim-treesitter/nvim-treesitter-textobjects",
+    config = function() end,
+  },
+  {
+    "nvim-treesitter/playground",
+    config = function() end,
+  }, -- TS information viewer
+  {
+    "p00f/nvim-ts-rainbow",
+    config = function() end,
+  }, -- Rainbow parentheses
   {
     "m-demare/hlargs.nvim",
     config = function()

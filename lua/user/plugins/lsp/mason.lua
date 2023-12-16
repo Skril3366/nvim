@@ -10,15 +10,21 @@ return {
     lazy = false,
     config = function()
       require("mason").setup({})
+      local masonlsp = require("mason-lspconfig")
+
       -- Set virtual text support
-      vim.lsp.handlers["textDocument/publishDiagnostics"] =
-          vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, { virtual_text = true })
+      vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
+        vim.lsp.diagnostic.on_publish_diagnostics,
+        { virtual_text = true }
+      )
     end,
   },
   {
     "williamboman/mason-lspconfig.nvim",
+    after = "mason.nvim",
     dependencies = {
       "neovim/nvim-lspconfig",
+      "williamboman/mason.nvim",
     },
     lazy = false,
     -- TODO: rewrite this into config function
@@ -41,7 +47,6 @@ return {
     },
     config = function()
       local masonlsp = require("mason-lspconfig")
-
       -- Fixes an issue that LSPs are sometimes not started when opening a file
       vim.api.nvim_create_autocmd({ "BufEnter" }, {
         callback = function()

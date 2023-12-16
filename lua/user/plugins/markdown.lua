@@ -2,7 +2,7 @@ return {
 	{
 		"iamcco/markdown-preview.nvim",
     event = "BufEnter *.md",
-		build = "cd app && npm install",
+		build = "cd app && npx --yes yarn install",
 		init = function()
 			vim.g.mkdp_filetypes = {
 				"markdown",

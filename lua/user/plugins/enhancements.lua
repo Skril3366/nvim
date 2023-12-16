@@ -1,7 +1,7 @@
 local user_config = require("user.config")
 return {
   {
-    'numToStr/Comment.nvim',
+    "numToStr/Comment.nvim",
     opts = {
       -- add any options here
     },
@@ -10,27 +10,7 @@ return {
   {
     "echasnovski/mini.nvim",
     config = function()
-      -- require("mini.comment").setup({}) -- add comments by shortcut
-      require("mini.ai").setup({ -- extend around/inside text objects
-        custom_textobjects = nil,
-        mappings = {
-          -- Main textobject prefixes
-          around = "a",
-          inside = "i",
-          -- Next/last variants
-          around_next = "an",
-          inside_next = "in",
-          around_last = "al",
-          inside_last = "il",
-          -- Move cursor to corresponding edge of `a` textobject
-          goto_left = "g[",
-          goto_right = "g]",
-        },
-        -- Number of lines within which textobject is searched
-        n_lines = 100,
-        search_method = "cover_or_next",
-      })
-      require("mini.pairs").setup({})      -- auto pair brackets and quotes
+      require("mini.pairs").setup({})   -- auto pair brackets and quotes
       require("mini.trailspace").setup({}) -- highlight and remove trailing spaces
     end,
   },
@@ -42,28 +22,19 @@ return {
   },
   {
     "ThePrimeagen/harpoon",
-    lazy = false,
+    branch = "harpoon2",
+    requires = { { "nvim-lua/plenary.nvim" } },
     config = function()
-      local mark = require("harpoon.mark")
-      local ui = require("harpoon.ui")
+      local harpoon = require("harpoon")
+      harpoon:setup()
+
       local nnoremap = require("user.utils.keymap").nnoremap
 
-      nnoremap("<leader>h", mark.add_file, "Add file to Harpoon list")
-      nnoremap("<leader>U", ui.toggle_quick_menu, "Toggle Harpoon quick menu")
-
-      local nav1 = function()
-        ui.nav_file(1)
-      end
-      local nav2 = function()
-        ui.nav_file(2)
-      end
-      local nav3 = function()
-        ui.nav_file(3)
-      end
-
-      nnoremap("<leader>n", nav1, "Open 1st file from Harpoon")
-      nnoremap("<leader>e", nav2, "Open 2nd file from Harpoon")
-      nnoremap("<leader>i", nav3, "Open 3rd file from Harpoon")
+      nnoremap("<leader>h", function() harpoon:list():append() end, "Add file to Harpoon list")
+      nnoremap("<leader>U", function() harpoon.ui:toggle_quick_menu(harpoon:list()) end, "Toggle Harpoon quick menu")
+      nnoremap("<leader>n", function() harpoon:list():select(1) end, "Select Harpoon entry 1")
+      nnoremap("<leader>e", function() harpoon:list():select(2) end, "Select Harpoon entry 2")
+      nnoremap("<leader>i", function() harpoon:list():select(3) end, "Select Harpoon entry 3")
     end,
   },
 
