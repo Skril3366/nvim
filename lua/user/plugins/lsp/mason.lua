@@ -33,15 +33,15 @@ return {
           buf.format({ async = true })
         end,
       },
-      { "<leader>a", buf.code_action },
-      { "gd", buf.definition },
-      { "gD", buf.declaration },
-      { "gi", buf.implementation },
-      { "K", buf.hover },
-      { "gr", buf.rename },
+      { "<leader>a",  buf.code_action },
+      { "gd",         buf.definition },
+      { "gD",         buf.declaration },
+      { "gi",         buf.implementation },
+      { "K",          buf.hover },
+      { "gr",         buf.rename },
       { "<leader>dp", diagnostic.goto_prev },
       { "<leader>dn", diagnostic.goto_next },
-      { "<leader>d", diagnostic.open_float },
+      { "<leader>d",  diagnostic.open_float },
     },
     config = function()
       local masonlsp = require("mason-lspconfig")
@@ -54,7 +54,15 @@ return {
 
       masonlsp.setup({
         ensure_installed = conf.ensure_installed.lsp,
-        automatic_installation = true,
+        automatic_installation = false,
+        upgrade = {
+          filter = function(package)
+            if package:match("^ktlint@") then
+              return false
+            end
+            return true
+          end,
+        },
       })
       local attach = function(_)
         print("LSP has started")
@@ -66,6 +74,15 @@ return {
           require("lspconfig")[server_name].setup({ on_attach = attach })
         end,
         -- Server specific handlers
+        ["kotlin_language_server"] = function(_)
+          require("lspconfig").kotlin_language_server.setup({
+            on_attach = function(client, _)
+              client.server_capabilities.documentFormattingProvider = false
+              client.server_capabilities.documentRangeFormattingProvider = false
+              attach(client)
+            end,
+          })
+        end,
         ["lua_ls"] = function(_)
           require("lspconfig").lua_ls.setup(require(lsp_servers .. "lua"))
         end,

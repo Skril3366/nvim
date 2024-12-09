@@ -52,7 +52,15 @@ return {
 
     local diagnostics = builtins.diagnostics
     local diagnostics_sources = {
-      diagnostics.codespell, -- common misspelling checker (for e.g. and instead and)
+      diagnostics.ktlint.with({
+        rgs = {
+          "--relative",
+          "--reporter=json",
+          "**/*.kt",
+          "**/*.kts",
+        },
+      }),
+      -- diagnostics.codespell, -- common misspelling checker (for e.g. and instead and)
       -- diagnostics.cspell, -- spell checker for code
       -- diagnostics.flake8, -- python
       -- diagnostics.markdownlint, -- markdown

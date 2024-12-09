@@ -25,6 +25,12 @@ return {
     end,
   },
   {
+    "echasnovski/mini.align",
+    config = function()
+      require("mini.align").setup() -- auto pair brackets and quotes
+    end,
+  },
+  {
     "kylechui/nvim-surround", -- surround text by objects
     config = function()
       require("nvim-surround").setup({})
@@ -58,10 +64,10 @@ return {
     end,
   },
 
-  {
-    "github/copilot.vim",
-    enabled = user_config.enabled_plugins.copilot,
-  },
+  -- {
+  --   "github/copilot.vim",
+  --   enabled = user_config.enabled_plugins.copilot,
+  -- },
   {
     "christoomey/vim-tmux-navigator",
     lazy = false,
