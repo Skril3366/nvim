@@ -47,17 +47,9 @@ return {
         {
           type = "scala",
           request = "launch",
-          name = "Run",
+          name = "Run or Test Target",
           metals = {
-            runType = "run",
-          },
-        },
-        {
-          type = "scala",
-          request = "launch",
-          name = "Test File",
-          metals = {
-            runType = "testFile",
+            runType = "runOrTestFile",
           },
         },
         {
@@ -67,6 +59,14 @@ return {
           metals = {
             runType = "testTarget",
           },
+        },
+        {
+          type = "scala",
+          request = "attach",
+          name = "Attach to Localhost",
+          hostName = "localhost",
+          port = 5005,
+          buildTarget = "root",
         },
       }
 

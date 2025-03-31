@@ -177,43 +177,43 @@ return {
       telescope.load_extension("fzf")
     end,
   }, -- Sorter for telescope to improve performance
-  {
-    "ahmedkhalf/project.nvim",
-    keys = {
-      {
-        "<leader>p",
-        "<cmd>Telescope projects<cr>",
-        desc = "Show all the projects",
-      },
-    },
-    lazy = false,
-    config = function()
-      require("telescope").load_extension("projects")
-      require("project_nvim").setup({
-        manual_mode = false,
-        detection_methods = { "lsp", "pattern" },
-        patterns = {
-          ".metals",
-          ".git",
-          "=tex",
-          -- "_darcs",
-          -- ".hg",
-          -- ".bzr",
-          -- ".svn",
-          "Makefile",
-          -- "package.json",
-        },
-        exclude_dirs = { os.getenv("HOME") },
-        show_hidden = false,
-        sync_root_with_cwd = true,
-        respect_buf_cwd = true,
-        update_focused_file = {
-          enable = true,
-          update_root = true,
-        },
-        silent_chdir = true,
-        scope_chdir = "global",
-      })
-    end,
-  },
+  -- {
+  --   "ahmedkhalf/project.nvim",
+  --   keys = {
+  --     {
+  --       "<leader>p",
+  --       "<cmd>Telescope projects<cr>",
+  --       desc = "Show all the projects",
+  --     },
+  --   },
+  --   lazy = false,
+  --   config = function()
+  --     require("telescope").load_extension("projects")
+  --     require("project_nvim").setup({
+  --       manual_mode = false,
+  --       detection_methods = { "lsp", "pattern" },
+  --       patterns = {
+  --         ".metals",
+  --         ".git",
+  --         "=tex",
+  --         -- "_darcs",
+  --         -- ".hg",
+  --         -- ".bzr",
+  --         -- ".svn",
+  --         "Makefile",
+  --         -- "package.json",
+  --       },
+  --       exclude_dirs = { os.getenv("HOME") },
+  --       show_hidden = false,
+  --       sync_root_with_cwd = true,
+  --       respect_buf_cwd = true,
+  --       update_focused_file = {
+  --         enable = true,
+  --         update_root = true,
+  --       },
+  --       silent_chdir = true,
+  --       scope_chdir = "global",
+  --     })
+  --   end,
+  -- },
 }
