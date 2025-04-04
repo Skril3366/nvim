@@ -2,7 +2,6 @@ local should_set_up_scala = require("user.config").lsp.additionally_set_up.scala
 
 local metals_loaded = function()
   if vim.fn.exists(":MetalsConnectBuild") == 2 then
-    print(vim.fn.exists(":MetalsConnectBuild"))
     return true
   end
   return false
@@ -46,10 +45,13 @@ if should_set_up_scala then
         function()
           local async = require("plenary.async")
           async.run(function()
-            local metals = require("metals")
-            local metals_config = init_metals(metals)
-            metals.initialize_or_attach(metals_config)
-            vim.wait(2000, metals_loaded)
+            if not metals_loaded() then
+              print("Loading metals...")
+              local metals = require("metals")
+              local metals_config = init_metals(metals)
+              metals.initialize_or_attach(metals_config)
+              vim.wait(2000, metals_loaded)
+            end
             vim.cmd("Telescope metals commands")
           end)
         end,
