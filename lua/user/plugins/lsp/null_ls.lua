@@ -47,7 +47,7 @@ return {
         extra_args = { "--dialect", "postgres" }, -- change to your dialect
       }),
       ormolu, -- haskell
-      formatting.latexindent, -- latex
+      -- formatting.latexindent, -- latex -- NOTE: for some reason fails to load
     }
 
     local diagnostics = builtins.diagnostics
