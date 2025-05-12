@@ -25,7 +25,6 @@ return {
       "williamboman/mason.nvim",
     },
     lazy = false,
-    -- TODO: rewrite this into config function
     keys = {
       {
         "<leader>f",
@@ -52,6 +51,10 @@ return {
         end,
       })
 
+      local attach = function(_)
+        print("LSP has started")
+      end
+
       masonlsp.setup({
         ensure_installed = conf.ensure_installed.lsp,
         automatic_installation = false,
@@ -63,64 +66,64 @@ return {
             return true
           end,
         },
-      })
-      local attach = function(_)
-        print("LSP has started")
-      end
+        handlers = {
+          -- Default handler
+          function(server_name)
+            require("lspconfig")[server_name].setup({ on_attach = attach })
+          end,
 
-      -- Settings for LSPs
-      masonlsp.setup_handlers({
-        function(server_name) -- default handler
-          require("lspconfig")[server_name].setup({ on_attach = attach })
-        end,
-        -- Server specific handlers
-        ["kotlin_language_server"] = function(_)
-          require("lspconfig").kotlin_language_server.setup({
-            on_attach = function(client, _)
-              client.server_capabilities.documentFormattingProvider = false
-              client.server_capabilities.documentRangeFormattingProvider = false
-              attach(client)
-            end,
-          })
-        end,
-        ["lua_ls"] = function(_)
-          require("lspconfig").lua_ls.setup(require(lsp_servers .. "lua"))
-        end,
-        ["pyright"] = function(_)
-          local lspconfig = require("lspconfig")
-          lspconfig.util.add_hook_before(lspconfig.util.on_setup, function(config)
-            print("Pyright before init")
-            local Path = require("plenary.path")
-            local venv = Path:new((config.root_dir:gsub("/", Path.path.sep)), ".venv")
+          -- Server-specific handlers
+          ["kotlin_language_server"] = function()
+            require("lspconfig").kotlin_language_server.setup({
+              on_attach = function(client, _)
+                client.server_capabilities.documentFormattingProvider = false
+                client.server_capabilities.documentRangeFormattingProvider =
+                    false
+                attach(client)
+              end,
+            })
+          end,
 
-            if venv:joinpath("bin"):is_dir() then
-              config.settings.python.pythonPath = tostring(venv:joinpath("bin", "python"))
-              print( "Using virtual environment: " .. config.settings.python.pythonPath)
-            else
-              print("No virtual environment found")
-            end
-          end
-          )
-          require("lspconfig").pyright.setup({ on_attach = attach })
-        end,
-        ["jdtls"] = function(_)
-          -- Empty function not to run it from Mason
-        end,
-        ["bashls"] = function(_)
-          require("lspconfig").bashls.setup({
-            on_attach = attach,
-            filetypes = { "sh", "zsh", "zshrc" },
-          })
-        end,
-        -- ["yamls"] = function(_)
-        --   require("lspconfig").bashls.setup({
-        --     settings = {
-        --       yaml = {
-        --         singleQuote = true,
-        --       },
-        --     },
-        --   })
-        -- end,
+          ["lua_ls"] = function()
+            require("lspconfig").lua_ls.setup(require(lsp_servers .. "lua"))
+          end,
+
+          ["pyright"] = function()
+            local lspconfig = require("lspconfig")
+            lspconfig.util.add_hook_before(
+              lspconfig.util.on_setup,
+              function(config)
+                print("Pyright before init")
+                local Path = require("plenary.path")
+                local venv =
+                    Path:new((config.root_dir:gsub("/", Path.path.sep)), ".venv")
+
+                if venv:joinpath("bin"):is_dir() then
+                  config.settings.python.pythonPath =
+                      tostring(venv:joinpath("bin", "python"))
+                  print(
+                    "Using virtual environment: "
+                    .. config.settings.python.pythonPath
+                  )
+                else
+                  print("No virtual environment found")
+                end
+              end
+            )
+            require("lspconfig").pyright.setup({ on_attach = attach })
+          end,
+
+          ["jdtls"] = function()
+            -- Empty function to exclude from Mason management
+          end,
+
+          ["bashls"] = function()
+            require("lspconfig").bashls.setup({
+              on_attach = attach,
+              filetypes = { "sh", "zsh", "zshrc" },
+            })
+          end,
+        },
       })
     end,
   },
