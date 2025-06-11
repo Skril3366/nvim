@@ -6,6 +6,7 @@ return {
       local telescope = require("telescope")
       local actions = require("telescope.actions")
       local builtin = require("telescope.builtin")
+      local themes = require("telescope.themes")
       local nnoremap = require("user.utils.keymap").nnoremap
 
       local find_files_default_opts = {
@@ -25,11 +26,10 @@ return {
         "Show files in $HOME/.config/nvim"
       )
 
-      nnoremap(
-        "<leader>o",
-        builtin.find_files,
-        "Search files in the current working directory"
-      )
+      nnoremap("<leader>o", function()
+        local opts = themes.get_ivy()
+        builtin.find_files(opts)
+      end, "Search files in the current working directory")
       nnoremap("<leader>.", function()
         builtin.find_files(vim.tbl_extend("force", {}, find_files_default_opts))
       end, "Search files in the current working directory")
