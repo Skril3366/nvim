@@ -6,3 +6,4 @@ spell/
 undodir/
 lua/.luarc.json
 lua/user/config.lua
+.aider*
