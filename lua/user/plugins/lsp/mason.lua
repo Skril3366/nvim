@@ -2,7 +2,6 @@ local buf = vim.lsp.buf
 local diagnostic = vim.diagnostic
 
 local lsp_servers = (...):match("(.-)[^%.]+$") .. "servers."
-local conf = require("user.config").lsp
 
 return {
   {
@@ -56,7 +55,17 @@ return {
       end
 
       masonlsp.setup({
-        ensure_installed = conf.ensure_installed.lsp,
+        ensure_installed = {
+          "bashls",
+          "clangd",
+          "cssls",
+          "jdtls",
+          "jsonls",
+          "lua_ls",
+          "texlab",
+          "yamlls",
+          "rust_analyzer",
+        },
         automatic_installation = false,
         upgrade = {
           filter = function(package)
@@ -132,7 +141,12 @@ return {
     config = function()
       local masondap = require("mason-nvim-dap")
       masondap.setup({
-        ensure_installed = conf.ensure_installed.dap,
+        ensure_installed = {
+          "bash-debug-adapter",
+          "cpptools",
+          "java-debug-adapter",
+          "java-test",
+        },
       })
     end,
   },
@@ -144,7 +158,34 @@ return {
     config = function()
       local masonnull = require("mason-null-ls")
       masonnull.setup({
-        ensure_installed = conf.ensure_installed.null_ls,
+        ensure_installed = {
+          "protolint",
+          "beautysh",
+          "black",
+          "blue",
+          "clang-format",
+          "cmakelang",
+          "codespell",
+          "cpplint",
+          "cspell",
+          "golangci-lint",
+          "isort",
+          "ltex-ls",
+          "prettierd",
+          "selene",
+          "shellcheck",
+          "shfmt",
+          "stylua",
+          "textlint",
+          "vale",
+          "write-good",
+          "yamlfmt",
+          "yamllint",
+          "google_java_format",
+          "sql_formatter",
+          "sqlfluff",
+          "latexindent",
+        },
         automatic_installation = true,
       })
     end,

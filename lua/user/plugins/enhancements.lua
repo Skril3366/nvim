@@ -1,4 +1,3 @@
-local user_config = require("user.config")
 return {
   {
     "numToStr/Comment.nvim", -- Toggle comments

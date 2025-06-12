@@ -12,7 +12,7 @@ return {
   -- get current module path
   -- load_module("dap"),
   load_module("mason"),
-  load_module("null_ls"),
+  load_module("none_ls"),
   load_module("java"),
   load_server("scala"),
   load_server("rust"),
