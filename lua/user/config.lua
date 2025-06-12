@@ -1,18 +1,9 @@
 return {
-  enabled_plugins = {
-    copilot = false,
-  },
-  colorscheme = {
-    name = "catppuccin",
-    transparent_background = true,
-  },
   lsp = {
-    -- enable additional plugins for better language support
     additionally_set_up = {
       rust = true,
       scala = true,
     },
-    -- list of lsp servers to be install
     ensure_installed = {
       lsp = {
         "bashls",
@@ -21,7 +12,6 @@ return {
         "jdtls",
         "jsonls",
         "lua_ls",
-        -- "marksman",
         "texlab",
         "yamlls",
         "rust_analyzer",
@@ -45,7 +35,6 @@ return {
         "golangci-lint",
         "isort",
         "ltex-ls",
-        -- "misspell",
         "prettierd",
         "selene",
         "shellcheck",

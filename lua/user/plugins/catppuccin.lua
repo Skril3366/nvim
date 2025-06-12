@@ -1,37 +1,6 @@
--- To add a colorscheme configure it and put into `colorschemes` table with key
--- as it's name
-local colorscheme = require("user.config").colorscheme.name
-local conf = require("user.config").colorscheme
-local priority = 100 -- default one is 50, for colorschemes should be higher
-
-local tokyonight = {
-  "folke/tokyonight.nvim",
-  config = function()
-    require("tokyonight").setup({
-      style = "night", -- `storm`, `night` or `day`
-      transparent = conf.transparent_background,
-      terminal_colors = true,
-      styles = {
-        comments = "italic",
-        keywords = "italic",
-        functions = "NONE",
-        variables = "NONE",
-        -- Backgrounds
-        sidebars = "dark",
-        floats = "dark",
-      },
-      sidebars = { "lazy.nvim", "terminal", "packer", "help" },
-      day_brightness = 0.3,
-      hide_inactive_statusline = false,
-      dim_inactive = false,
-      lualine_bold = false,
-    })
-    vim.cmd([[colorscheme tokyonight]])
-  end,
-}
-
-local catppuccin = {
+return {
   "catppuccin/nvim",
+  priority = 100, -- To ensure that colorscheme loads first
   config = function()
     require("catppuccin").setup({
       flavour = "mocha", -- latte, frappe, macchiato, mocha
@@ -39,7 +8,7 @@ local catppuccin = {
         light = "latte",
         dark = "mocha",
       },
-      transparent_background = conf.transparent_background,
+      transparent_background = true,
       show_end_of_buffer = false, -- show the '~' characters after the end of buffers
       term_colors = false,
       dim_inactive = {
@@ -80,13 +49,3 @@ local catppuccin = {
     vim.cmd.colorscheme("catppuccin")
   end,
 }
-
-local colorschemes = {
-  ["catppuccin"] = catppuccin,
-  ["tokyonight"] = tokyonight,
-}
-
-local chosen = colorschemes[colorscheme]
-chosen.priority = priority -- To ensure that colorscheme loads first
-
-return chosen

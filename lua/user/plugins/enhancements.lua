@@ -63,11 +63,6 @@ return {
       end, "Select Harpoon entry 3")
     end,
   },
-
-  -- {
-  --   "github/copilot.vim",
-  --   enabled = user_config.enabled_plugins.copilot,
-  -- },
   {
     "christoomey/vim-tmux-navigator",
     lazy = false,

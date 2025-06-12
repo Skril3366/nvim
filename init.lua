@@ -9,7 +9,6 @@ local load = function(name)
 end
 
 load("core.options")
-load("core.lazygit")
 load("core.keybindings")
 
 load("lazy") -- load auto-installer for lazy.nvim
