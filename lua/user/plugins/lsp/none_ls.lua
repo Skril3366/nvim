@@ -14,6 +14,15 @@ return {
       b.formatting.clang_format,
       b.formatting.prettierd,
       b.formatting.google_java_format,
+      {
+        name = "ocamlfmt",
+        method = null_ls.methods.FORMATTING,
+        filetypes = { "ocaml" },
+        generator = null_ls.generator({
+          command = "ocamlfmt",
+          to_stdin = true,
+        }),
+      },
       b.formatting.sqlfluff.with({
         extra_args = { "--dialect", "postgres" },
       }),

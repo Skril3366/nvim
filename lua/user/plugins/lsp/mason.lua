@@ -132,6 +132,12 @@ return {
               filetypes = { "sh", "zsh", "zshrc" },
             })
           end,
+
+          ["ocamllsp"] = function()
+            require("lspconfig").ocamllsp.setup({
+              on_attach = attach,
+            })
+          end,
         },
       })
     end,
