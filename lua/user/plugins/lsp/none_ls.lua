@@ -26,15 +26,15 @@ return {
       b.formatting.sqlfluff.with({
         extra_args = { "--dialect", "postgres" },
       }),
-      {
-        name = "ormolu",
-        method = null_ls.methods.FORMATTING,
-        filetypes = { "haskell" },
-        generator = null_ls.generator({
-          command = "ormolu",
-          to_stdin = true,
-        }),
-      },
+      -- {
+      --   name = "ormolu",
+      --   method = null_ls.methods.FORMATTING,
+      --   filetypes = { "haskell" },
+      --   generator = null_ls.generator({
+      --     command = "ormolu",
+      --     to_stdin = true,
+      --   }),
+      -- },
 
       -- Diagnostics
       b.diagnostics.ktlint.with({
