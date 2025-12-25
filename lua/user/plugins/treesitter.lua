@@ -65,6 +65,9 @@ return {
           -- git
           "gitcommit",
           "gitignore",
+          -- game development
+          "gdscript",
+          "gdshader",
         },
         incremental_selection = {
           enable = true,

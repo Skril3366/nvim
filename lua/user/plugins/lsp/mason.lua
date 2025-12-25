@@ -191,6 +191,7 @@ return {
           "sql_formatter",
           "sqlfluff",
           "latexindent",
+          "gdtoolkit",
         },
         automatic_installation = true,
       })

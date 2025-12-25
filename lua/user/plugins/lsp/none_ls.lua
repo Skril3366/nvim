@@ -14,6 +14,7 @@ return {
       b.formatting.clang_format,
       b.formatting.prettierd,
       b.formatting.google_java_format,
+      b.formatting.gdformat,
       {
         name = "ocamlfmt",
         method = null_ls.methods.FORMATTING,
