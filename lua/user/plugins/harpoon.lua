@@ -1,27 +1,27 @@
 return {
-  "ThePrimeagen/harpoon",
-  branch = "harpoon2",
-  dependencies = "nvim-lua/plenary.nvim",
-  config = function()
-    local harpoon = require("harpoon")
-    harpoon:setup()
-
-    local nnoremap = require("user.utils.keymap").nnoremap
-
-    nnoremap("<leader>h", function()
-      harpoon:list():append()
-    end, "Add file to Harpoon list")
-    nnoremap("<leader>U", function()
-      harpoon.ui:toggle_quick_menu(harpoon:list())
-    end, "Toggle Harpoon quick menu")
-    nnoremap("<leader>n", function()
-      harpoon:list():select(1)
-    end, "Select Harpoon entry 1")
-    nnoremap("<leader>e", function()
-      harpoon:list():select(2)
-    end, "Select Harpoon entry 2")
-    nnoremap("<leader>i", function()
-      harpoon:list():select(3)
-    end, "Select Harpoon entry 3")
-  end,
+  -- "ThePrimeagen/harpoon",
+  -- branch = "harpoon2",
+  -- dependencies = "nvim-lua/plenary.nvim",
+  -- config = function()
+  --   local harpoon = require("harpoon")
+  --   harpoon:setup()
+  --
+  --   local nnoremap = require("user.utils.keymap").nnoremap
+  --
+  --   nnoremap("<leader>h", function()
+  --     harpoon:list():append()
+  --   end, "Add file to Harpoon list")
+  --   nnoremap("<leader>U", function()
+  --     harpoon.ui:toggle_quick_menu(harpoon:list())
+  --   end, "Toggle Harpoon quick menu")
+  --   nnoremap("<leader>n", function()
+  --     harpoon:list():select(1)
+  --   end, "Select Harpoon entry 1")
+  --   nnoremap("<leader>e", function()
+  --     harpoon:list():select(2)
+  --   end, "Select Harpoon entry 2")
+  --   nnoremap("<leader>i", function()
+  --     harpoon:list():select(3)
+  --   end, "Select Harpoon entry 3")
+  -- end,
 }
