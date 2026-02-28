@@ -16,6 +16,7 @@ local init_metals = function(metals)
     testUserInterface = "Test Explorer",
     fallbackScalaVersion = "2.13.10",
     -- serverVersion = "1.3.3", -- this is the last version that supports scala 2.13.10
+    sbtScript = "sbt --client", -- use thin client to share server with terminal/agents
   }
 
   metals_config.on_attach = function(_, _)
