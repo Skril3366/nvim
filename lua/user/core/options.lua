@@ -33,6 +33,7 @@ vim.api.nvim_create_autocmd("BufEnter", {
 
 o.foldlevelstart = 99
 wo.foldlevel = 99
+o.foldclose = "" -- don't auto-close folds when cursor leaves
 
 -- Undo & Backup
 o.undofile = true                                        -- enable saving history

@@ -46,7 +46,11 @@ return {
           "**/*.kts",
         },
       }),
-      b.diagnostics.vale,
+      b.diagnostics.vale.with({
+        condition = function(utils)
+          return utils.root_has_file({ ".vale.ini" })
+        end,
+      }),
       b.diagnostics.sqlfluff.with({
         extra_args = { "--dialect", "postgres" },
       }),

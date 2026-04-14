@@ -10,5 +10,6 @@ end
 
 load("core.options")
 load("core.keybindings")
+load("core.review")
 
 load("lazy") -- load auto-installer for lazy.nvim
